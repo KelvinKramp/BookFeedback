@@ -233,23 +233,14 @@ app.layout = html.Div(children=[
 )
 def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4, submitclick, save, close, is_open, is_open2):
     if save == 0 and submitclick== 1:
-        print("save value =", save)
-        print("submit value =", submitclick)
         return not is_open, is_open2
     elif submitclick >1:
-        print("already submitted")
         return is_open, not is_open2
     elif close:
-        print("closing window")
         return not is_open, not is_open2
     elif save == 1 and submitclick==1:
-        print("save value =", save)
-        print("submit value =", submitclick)
         print(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4)
-        print("all input saved")
         return is_open, not is_open2
-    print("save value =", save)
-    print("submit value =",submitclick)
     return is_open, is_open2
 
 
