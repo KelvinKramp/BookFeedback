@@ -1,0 +1,1 @@
+web: gunicorn OPS_calculator:server
