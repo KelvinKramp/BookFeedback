@@ -1,1 +1,1 @@
-web: gunicorn OPS_calculator:server
+web: gunicorn main:server
