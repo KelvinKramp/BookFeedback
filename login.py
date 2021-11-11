@@ -5,11 +5,17 @@ import web
 import json
 import auth
 
+import json
+
+secrets = 'secrets.json'
+with open(secrets) as f:
+    secret = json.load(f)
+
 
 # create Google app & get app ID/secret from:
 # https://cloud.google.com/console
-auth.parameters['google']['app_id'] = '525583991072-kjp0scji4oad2hprk53jquphr0oe2hs3.apps.googleusercontent.com'
-auth.parameters['google']['app_secret'] = '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'
+auth.parameters['google']['app_id'] = secret["app_id"]
+auth.parameters['google']['app_secret'] = secret["app_secret"]
 
 # create Facebook app & get app ID/secret from:
 # https://developers.facebook.com/apps
