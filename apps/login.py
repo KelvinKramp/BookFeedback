@@ -58,7 +58,8 @@ class handler(auth.handler):
 class AuthPage(handler):
   print("logging in")
   def GET(self, provider):
-    self.auth_init(provider)
+    auth_url = self.auth_init(provider)
+    return auth_url
 
 
 class AuthCallbackPage(handler):

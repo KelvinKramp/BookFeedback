@@ -42,7 +42,8 @@ class handler:
   def auth_init(self, provider):
     """Start the auth process
     """
-    self._oauth2_init(provider)
+    auth_url = self._oauth2_init(provider)
+    return auth_url
 
   def auth_callback(self, provider):
     """Callback handler for auth process

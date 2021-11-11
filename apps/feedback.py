@@ -267,8 +267,8 @@ def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, 
 def submit(a,b,c):
     if a==1:
         auth = login.AuthPage()
-        auth.GET("google")
-        return c, dcc.Location(href="",
+        auth_url = auth.GET("google")
+        return c, dcc.Location(href=auth_url,
                            id="someid")
     else:
         return c, ""
