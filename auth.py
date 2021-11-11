@@ -26,7 +26,7 @@ class handler:
 
   SUPPORTED_PROVIDERS = ['google', 'facebook']
 
-  # provider: (auth_type, auth_url, access_token_url, parser_type)
+
   PROVIDERS = {
     'google':   ('oauth2',
       'https://accounts.google.com/o/oauth2/auth',
@@ -37,6 +37,7 @@ class handler:
       'https://graph.facebook.com/oauth/access_token',
       '_query_string_parser'),
   }
+  provider = PROVIDERS['google']
 
   def auth_init(self, provider):
     """Start the auth process
@@ -144,8 +145,9 @@ class handler:
       'scope': parameters[provider]['scope']
     }
 
-    auth_url = self.PROVIDERS[provider][1] + '?' + urllib.urlencode(args)
-
+    # urllib has been split up in Python 3.
+    # The urllib.urlencode() function is now urllib.parse.urlencode(),
+    auth_url = self.PROVIDERS[provider][1] + '?' + urllib.parse.urlencode(args)
     # redirect users to login page of the provider
     raise web.seeother(auth_url)
 
