@@ -4,18 +4,20 @@
 import web
 import json
 from apps import auth
-
+import os
 import json
 
-secrets = 'secrets.json'
-with open(secrets) as f:
-    secret = json.load(f)
-
-
-# create Google app & get app ID/secret from:
-# https://cloud.google.com/console
-auth.parameters['google']['app_id'] = secret["app_id"]
-auth.parameters['google']['app_secret'] = secret["app_secret"]
+if "Users" in os.getcwd():
+  secrets = 'secrets.json'
+  with open(secrets) as f:
+      secret = json.load(f)
+  # create Google app & get app ID/secret from:
+  # https://cloud.google.com/console
+  auth.parameters['google']['app_id'] = secret["app_id"]
+  auth.parameters['google']['app_secret'] = secret["app_secret"]
+else:
+  auth.parameters['google']['app_id'] = os.environ['app_id']
+  auth.parameters['google']['app_secret'] = os.environ['app_secret']
 
 # create Facebook app & get app ID/secret from:
 # https://developers.facebook.com/apps
@@ -49,11 +51,14 @@ class handler(auth.handler):
     user_id = '%s:%s' % (provider, profile['id'])
 
     # set '_id' in the cookie to sign-in the user in our webapp
-    web.setcookie('_id', user_id)
-    web.setcookie('_profile', json.dumps(profile))
-
-    raise web.seeother('/')
-
+    # web.setcookie('_id', user_id)
+    # web.setcookie('_profile', json.dumps(profile))
+    user_name = profile['given_name']
+    print(user_name)
+    userinfo = 'userinfo.json'
+    info = json.dumps(profile)
+    with open(userinfo, 'w') as f:
+      f.write(info)
 
 class AuthPage(handler):
   print("logging in")
@@ -63,8 +68,8 @@ class AuthPage(handler):
 
 
 class AuthCallbackPage(handler):
-  def GET(self, provider):
-    self.auth_callback(provider)
+  def GET(self, provider, code):
+    self.auth_callback(provider, code)
 
 
 class LoginPage:
@@ -94,7 +99,3 @@ class LogoutPage:
     web.setcookie('_id', '', 0)
     raise web.seeother('/')
 
-
-# app = web.application(urls, globals())
-# if __name__ == '__main__':
-#   app.run()

@@ -5,44 +5,36 @@ import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from app import app
 from apps import priv_pol, term_cond, feedback, auth, login
-
+import json
 
 score = [{'label': 'Strongly agree', 'value': '1'}, {'label': 'Agree', 'value': '2'}, {'label': 'Neutral', 'value': '3'}, {'label': 'Disagree', 'value': '4'}, {'label': 'Strongly disagree', 'value': '5'}]
 style_score = {'display': 'inline-block', 'text-align': 'center', 'display': 'flex',
                                            'justify-content': 'space-evenly', 'width': '30%'}
 labelStyle_score = {'display': 'inline-block', 'text-align': 'right','width': '100%',}
 
-introduction_text = """Several persons have read this book before you and given feedback that was incorporated in the text you've read. They have all sort of read the text from the perspective of an editor.
-                                        This probably caused them to read the book in a different reading style. I gave you a copy because you have contributed directly or indirectly to the writing or because you were just genuinely interested in what I've written down. 
-                                        I didn't tell you that it wasn't the final version because I wanted you to read as if it was the real thing. If you've had the chance to read it, I would love to hear your opinion about what you've read and use it in the final version before I
-                                        create public awareness on a larger scale."""
+introduction_text = """You've received a copy because you have contributed directly or indirectly to the writing or because you were just genuinely interested in what I've written down. 
+                                        I didn't explicitely tell you that it wasn't the final version because I wanted you to read as if it was the real thing. 
+                                        If you've had the time to read it, or parts of it, I would love to hear your opinion and use it in the final version before I
+                                        go public."""
 open_question_1 = "What did you think was the most interesting chapter and why?"
 open_question_2 = "Did you get stuck/disinterested while reading? and if yes where and why?"
 open_question_3 = "If you think it was incomplete can you tell me what you think was missing?"
 open_question_4 = "Do you have any other comments?"
+global state_file
+state=True # state of the login modal window at opening the website
+state_file = 'state_modal.json'
+with open(state_file, 'w') as f:
+    f.write('{"state": "True"}')
 
 layout = html.Div(children=[
-        dbc.Row([
-            dbc.Col(html.H1("Feedback Book", style={'textAlign': 'center'}),
-                    width=12)
-        ]),
-        dbc.Row([
-            dbc.Col(html.H2("Urban kiz: a new vision on partner dance", style={'textAlign': 'center'}),
-                    width=12)
-        ]),
-        dbc.Row([
-            html.H3(" ", style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-        ]),
-        dbc.Row([
-            dbc.Col(html.H4(introduction_text, style={'width': 'fit-content', 'overflow-wrap': 'break-word'}),
-                    width={"size": 10, "offset": 1},
-                    )], ),
-        dbc.Row([
-            html.H3(" ", style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-        ]),
         html.Br(),
         dbc.Row([
-            html.H3("Multiple choice questions",
+            dbc.Col(html.H5(introduction_text, style={'width': 'fit-content', 'overflow-wrap': 'break-word'}),
+                    width={"size": 10, "offset": 1},
+                    )], ),
+        html.Br(),
+        dbc.Row([
+            html.H4("Multiple choice questions",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
         ]),
         dbc.Row(children=[
@@ -102,7 +94,7 @@ layout = html.Div(children=[
         ], ),
         html.Br(),
         dbc.Row([
-            html.H3("Open questions",
+            html.H4("Open questions",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
         ]),
         dbc.Row(children=[
@@ -179,7 +171,7 @@ layout = html.Div(children=[
             [
                 dbc.ModalHeader("Do you want to submit the feedback?"),
                 dbc.ModalFooter(children=[
-                    dbc.Button("Save", id="save", className="ml-auto", n_clicks=0),
+                    dbc.Button("Submit", id="save", className="ml-auto", n_clicks=0),
                 ]
                 ),
             ],
@@ -219,7 +211,7 @@ layout = html.Div(children=[
                 ]
                 ),
             ],
-            is_open=True,
+            is_open=state,
             id="modal3",
             style={"white-space": "break-spaces"},
             backdrop=False
@@ -258,17 +250,32 @@ def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, 
     return is_open, is_open2
 
 @app.callback(
-    Output("modal3", "is_open"),
     Output("hidden_div_for_redirect_callback", "children"),
+    Output("modal3", "is_open"),
     [Input('google-login', 'n_clicks'),
      Input('facebook-login', 'n_clicks')],
     [State("modal3", "is_open")],
 )
-def submit(a,b,c):
+def google_fb_login(a,b,c):
+    print(a,b,c)
+    print(c)
+    # read state file
+    with open(state_file) as f:
+        state = json.load(f)
+    state = eval(state["state"])
     if a==1:
         auth = login.AuthPage()
         auth_url = auth.GET("google")
-        return c, dcc.Location(href=auth_url,
-                           id="someid")
+        if "code" in auth_url:
+            # write to state file
+            with open(state_file, 'w') as f:
+                f.write('{"state": "False"}')
+        return dcc.Location(href=auth_url,
+                           id="someid"), False
+    elif b==1:
+        return "", False
     else:
-        return c, ""
+        if not state:
+            return "", False
+        else:
+            return "", True

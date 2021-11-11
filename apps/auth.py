@@ -45,10 +45,10 @@ class handler:
     auth_url = self._oauth2_init(provider)
     return auth_url
 
-  def auth_callback(self, provider):
+  def auth_callback(self, provider, code):
     """Callback handler for auth process
     """
-    self._oauth2_callback(provider)
+    self._oauth2_callback(provider, code)
 
   def on_signin(self, provider, profile):
     """Callback when the user successfully signs in the account of the provider
@@ -88,7 +88,10 @@ class handler:
       ```
 
     """
-    raise NotImplementedError
+
+    user_id = '%s:%s' % (provider, profile['id'])
+    print(user_id)
+    # raise NotImplementedError
 
   def _http_get(self, url, args=None):
     """Python HTTP GET request
@@ -162,7 +165,7 @@ class handler:
     return auth_url
 
 
-  def _oauth2_callback(self, provider):
+  def _oauth2_callback(self, provider, code):
     """Step 2 of oauth 2.0: Handling response from login page of providers.
     Case 1) If auth (authentication and authorization) not ok, raise Exception.
     Case 2) If auth ok, get access_token first, and then use the access_token to
@@ -171,12 +174,10 @@ class handler:
     self._check_provider(provider)
 
     # check whether auth is ok, if not ok, raise Exception.
-    error = web.input().get('error')
-    if error:
-      raise Exception(error)
+    # error = web.input().get('error')
+    # if error:
+    #   raise Exception(error)
 
-    # auth ok, get access_token
-    code = web.input().get('code')
 
     args = {
       'code': code,
