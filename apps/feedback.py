@@ -268,7 +268,7 @@ def submit(a,b,c):
     if a==1:
         auth = login.AuthPage()
         auth.GET("google")
-        return c, dcc.Location(href="",
+        return c, dcc.Location(href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=525583991072-kjp0scji4oad2hprk53jquphr0oe2hs3.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fgoogle%2Fcallback&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email",
                            id="someid")
     else:
         return c, ""

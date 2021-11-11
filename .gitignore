@@ -21,3 +21,4 @@ files
 RBH_app
 update.sh
 token.txt
+upload_heroku.sh
