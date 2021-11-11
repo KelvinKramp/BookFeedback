@@ -1,14 +1,10 @@
-from login import *
-
 # IMPORT MODULES
-import dash
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from datetime import datetime as dt
 import subprocess
-import dash_dangerously_set_inner_html
 from apps import priv_pol, term_cond, feedback
 from app import app
 from app import server

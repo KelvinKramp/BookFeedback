@@ -3,7 +3,6 @@ import dash_dangerously_set_inner_html
 
 
 layout = html.Div(children=[
-                  html.Div(["Hello there"]),
                     html.Div([
                         dash_dangerously_set_inner_html.DangerouslySetInnerHTML('''
 <!DOCTYPE html>

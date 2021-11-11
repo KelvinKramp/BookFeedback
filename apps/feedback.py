@@ -1,15 +1,9 @@
 # IMPORT MODULES
-import dash
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
-from datetime import datetime as dt
-import subprocess
-import dash_dangerously_set_inner_html
-from apps import priv_pol, term_cond
 from app import app
-from app import server
 
 score = [{'label': 'Strongly agree', 'value': '1'}, {'label': 'Agree', 'value': '2'}, {'label': 'Neutral', 'value': '3'}, {'label': 'Disagree', 'value': '4'}, {'label': 'Strongly disagree', 'value': '5'}]
 style_score = {'display': 'inline-block', 'text-align': 'center', 'display': 'flex',
