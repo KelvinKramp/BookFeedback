@@ -96,10 +96,10 @@ class handler:
       {a: '1', b: '2'} => a=1&b=2
     """
     if args == None:
-      response = urllib.urlopen(url)
+      response = urllib.request.urlopen(url)
     else:
-      query_string = urllib.urlencode(args)
-      response = urllib.urlopen('%s?%s' % (url, query_string))
+      query_string = urllib.parse.urlencode(args)
+      response = urllib.request.urlopen('%s?%s' % (url, query_string))
     return response
 
   def _http_post(self, url, args):
@@ -108,8 +108,8 @@ class handler:
     args (optional): dict used to build POST data, e.g.,
       {a: '1', b: '2'} => a=1&b=2
     """
-    data = urllib.urlencode(args)
-    response = urllib.urlopen(url, data)
+    data = urllib.parse.urlencode(args).encode("utf-8")
+    response = urllib.request.urlopen(url, data)
     return response
 
   def _check_provider(self, provider):
@@ -147,6 +147,7 @@ class handler:
 
     # urllib has been split up in Python 3.
     # The urllib.urlencode() function is now urllib.parse.urlencode(),
+    # https://stackoverflow.com/questions/28906859/module-has-no-attribute-urlencode
     auth_url = self.PROVIDERS[provider][1] + '?' + urllib.parse.urlencode(args)
     # redirect users to login page of the provider
     raise web.seeother(auth_url)
