@@ -199,6 +199,28 @@ layout = html.Div(children=[
             style={"white-space": "break-spaces"},
             backdrop=False
         ),
+        dbc.Modal(
+            [
+                dbc.ModalHeader("Login with Google or Facebook"),
+                dbc.ModalFooter(children=[
+                    dbc.Row(children=[
+                    dbc.Button("Google", id='google-login', className="ml-auto", n_clicks=0),
+                    dbc.Col(""),
+                    dbc.Button("Facebook", id='facebook-login', className="ml-auto", n_clicks=0),
+                        dbc.Col(""),
+                        dbc.Col(""),
+                        dbc.Col(""),
+                        dbc.Col(""),
+                        ], align='center', justify='center'
+                    )
+                ]
+                ),
+            ],
+            is_open=True,
+            id="modal2",
+            style={"white-space": "break-spaces"},
+            backdrop=False
+        ),
     ])
 
 ### CALLBACKS ## the numbers are LETTER O followed by a number
