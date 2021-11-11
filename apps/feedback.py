@@ -4,6 +4,8 @@ from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from app import app
+from apps import priv_pol, term_cond, feedback, auth, login
+
 
 score = [{'label': 'Strongly agree', 'value': '1'}, {'label': 'Agree', 'value': '2'}, {'label': 'Neutral', 'value': '3'}, {'label': 'Disagree', 'value': '4'}, {'label': 'Strongly disagree', 'value': '5'}]
 style_score = {'display': 'inline-block', 'text-align': 'center', 'display': 'flex',
@@ -211,13 +213,14 @@ layout = html.Div(children=[
                         dbc.Col(""),
                         dbc.Col(""),
                         dbc.Col(""),
+                        html.Div(id="hidden_div_for_redirect_callback")
                         ], align='center', justify='center'
                     )
                 ]
                 ),
             ],
             is_open=True,
-            id="modal2",
+            id="modal3",
             style={"white-space": "break-spaces"},
             backdrop=False
         ),
@@ -253,3 +256,19 @@ def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, 
         print(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4)
         return is_open, not is_open2
     return is_open, is_open2
+
+@app.callback(
+    Output("modal3", "is_open"),
+    Output("hidden_div_for_redirect_callback", "children"),
+    [Input('google-login', 'n_clicks'),
+     Input('facebook-login', 'n_clicks')],
+    [State("modal3", "is_open")],
+)
+def submit(a,b,c):
+    if a==1:
+        auth = login.AuthPage()
+        auth.GET("google")
+        return c, dcc.Location(href="",
+                           id="someid")
+    else:
+        return c, ""

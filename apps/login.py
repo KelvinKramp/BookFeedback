@@ -3,7 +3,7 @@
 
 import web
 import json
-import auth
+from apps import auth
 
 import json
 
@@ -56,6 +56,7 @@ class handler(auth.handler):
 
 
 class AuthPage(handler):
+  print("logging in")
   def GET(self, provider):
     self.auth_init(provider)
 
@@ -76,7 +77,7 @@ class LoginPage:
         Hello <b><i>%s</i></b>, your profile<br />
         %s<br />
       </body></html>
-      """ % ( profile['id'], json.dumps(profile) )
+      """ % (profile['id'], json.dumps(profile))
     else:
       # user not sing in
       return """<html><head></head><body>
@@ -93,6 +94,6 @@ class LogoutPage:
     raise web.seeother('/')
 
 
-app = web.application(urls, globals())
-if __name__ == '__main__':
-  app.run()
+# app = web.application(urls, globals())
+# if __name__ == '__main__':
+#   app.run()

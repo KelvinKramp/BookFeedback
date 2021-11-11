@@ -5,7 +5,7 @@ import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from datetime import datetime as dt
 import subprocess
-from apps import priv_pol, term_cond, feedback
+from apps import priv_pol, term_cond, feedback, auth, login
 from app import app
 from app import server
 
@@ -24,8 +24,6 @@ app.layout = html.Div(children=[
                                     dcc.Link('Privacy policy', href='/apps/priv_pol')],
                             justify='center'),
                             ])
-
-
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
@@ -33,9 +31,19 @@ def display_page(pathname):
         return priv_pol.layout
     elif pathname == '/apps/term_cond':
         return term_cond.layout
+    if pathname == '/auth/google/callback':
+        print(pathname)
+        return feedback.layout
+    elif "error" in pathname:
+        print(pathname)
+        print("Error logging in")
+        return feedback.layout
+    elif "code" in pathname:
+        print(pathname)
+        print("Logging in succeeded")
+        return feedback.layout
     else:
         return feedback.layout
-
 
 
 if __name__ == '__main__':

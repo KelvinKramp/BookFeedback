@@ -4,7 +4,7 @@ import web
 import urllib
 import urllib.parse
 import json
-
+import requests
 
 parameters = {
   'google': {
@@ -115,7 +115,9 @@ class handler:
   def _check_provider(self, provider):
     """Check if valid provider, app_id, and app_secret
     """
-
+    print("TEST1")
+    print(provider)
+    print(self.SUPPORTED_PROVIDERS)
     # check if the provider is supported
     if provider not in self.SUPPORTED_PROVIDERS:
       raise Exception('unsupported provider: %s' % provider)
@@ -136,6 +138,7 @@ class handler:
     Send users to login page of provider (like Google or Facebook) for
     authentication and ask authorization of user data.
     """
+    print("_oauth2_init")
     self._check_provider(provider)
 
     args = {
@@ -150,7 +153,13 @@ class handler:
     # https://stackoverflow.com/questions/28906859/module-has-no-attribute-urlencode
     auth_url = self.PROVIDERS[provider][1] + '?' + urllib.parse.urlencode(args)
     # redirect users to login page of the provider
-    raise web.seeother(auth_url)
+
+    # print("using web.py")
+    # raise web.seeother(auth_url)
+
+    print(auth_url)
+    return auth_url
+
 
   def _oauth2_callback(self, provider):
     """Step 2 of oauth 2.0: Handling response from login page of providers.
