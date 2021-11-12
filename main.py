@@ -13,7 +13,7 @@ import flask
 import dash
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from sql import db, Feedback
+from app import db, Feedback
 
 
 
