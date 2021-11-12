@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from app import app
 
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 SQL_URI = "postgres://ltrredytatniha:3a13463b7d0e4a6623e98617fad31de2ea8ad72051496180daa3b6340d06ccd3@ec2-52-209-246-87.eu-west-1.compute.amazonaws.com:5432/dbfi85qqp960ge"
 

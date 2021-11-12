@@ -73,23 +73,7 @@ class AuthCallbackPage(handler):
 
 class LoginPage:
   def GET(self):
-    # check '_id' in the cookie to see if the user already sign in
-    if web.cookies().get('_id'):
-      # user already sign in, retrieve user profile
-      profile = json.loads( web.cookies().get('_profile') )
-      return """<html><head></head><body>
-        <a href="/logout">Logout</a><br />
-        Hello <b><i>%s</i></b>, your profile<br />
-        %s<br />
-      </body></html>
-      """ % (profile['id'], json.dumps(profile))
-    else:
-      # user not sing in
-      return """<html><head></head><body>
-        <a href="/auth/facebook">Facebook Login</a><br />
-        <a href="/auth/google">Google Login</a><br />
-      </body></html>
-      """
+    return
 
 
 class LogoutPage:

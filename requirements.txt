@@ -29,5 +29,4 @@ six==1.16.0
 SQLAlchemy==1.4.27
 tenacity==8.0.1
 urllib3==1.26.7
-web.py==0.62
 Werkzeug==2.0.1
