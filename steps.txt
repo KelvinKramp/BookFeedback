@@ -11,10 +11,10 @@ run upload script
 TO DO
 - log out function x
 - report a bug modal window x
-- replace button with login button
+- replace button with login button x
 - buy fully illustrated -> modal: I will incorporate the feedback I get. You will receive a mail when the book is ready
 
-- Background change
+- Background change x
 , style={'background-image': 'url(https://static.wixstatic.com/media/c1ba37_0560ae33f3684a72ac83b1445c4e05a1~mv2.jpg/v1/crop/x_0,y_237,w_955,h_923/fill/w_955,h_923,al_c,q_85/c1ba37_0560ae33f3684a72ac83b1445c4e05a1~mv2.webp)',
               'background-repeat': 'no-repeat',
               'background-size': 'cover'}
