@@ -236,63 +236,64 @@ layout = html.Div(children=[
             backdrop=False
         ),
     ])
-
-### CALLBACKS ## the numbers are LETTER O followed by a number
-@app.callback(
-    Output("modal", "is_open"),
-    Output("modal2", "is_open"),
-    [Input("1", "value"),
-     Input('2', 'value'),
-     Input('3', 'value'),
-     Input('4', 'value'),
-     Input('5', 'value'),
-     Input('textarea1', 'value'),
-     Input('textarea2', 'value'),
-     Input('textarea3', 'value'),
-     Input('textarea4', 'value'),
-     Input('submit-button', 'n_clicks'),
-     Input('save', 'n_clicks'),
-     Input('close', 'n_clicks')],
-    [State("modal", "is_open"),
-     State("modal2", "is_open")],
-)
-def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4, submitclick, save, close, is_open, is_open2):
-    if save == 0 and submitclick== 1:
-        return not is_open, is_open2
-    elif submitclick >1:
-        return is_open, not is_open2
-    elif close:
-        return not is_open, not is_open2
-    elif save == 1 and submitclick==1:
-        print(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4)
-        return is_open, not is_open2
-    return is_open, is_open2
-
-@app.callback(
-    Output("hidden_div_for_redirect_callback", "children"),
-    Output("modal3", "is_open"),
-    [Input('google-login', 'n_clicks'),
-     Input('register-manual', 'n_clicks'),
-     Input('name', 'value'),
-     Input('email', 'value')],
-    [State("modal3", "is_open")],
-)
-def google_fb_login(a,b, name, email, c,):
-    print(a,b, name, email, c,)
-    import flask
-    allcookies = dict(flask.request.cookies)
-    if a==1 and b==0:
-        auth = login.AuthPage()
-        auth_url = auth.GET("google")
-
-        return dcc.Location(href=auth_url,
-                           id="someid"), False
-    elif b==1:
-        dash.callback_context.response.set_cookie('_id', "register_manual")
-        dash.callback_context.response.set_cookie('_profile', "'{"+"name"+":"+ str(name)+"}'")
-        return "", False
-    else:
-        if not allcookies.get('_id') or allcookies['_id'] == '':
-            return "", True
-        else:
-            return "", False
+#
+# ### CALLBACKS ## the numbers are LETTER O followed by a number
+# @app.callback(
+#     Output("modal", "is_open"),
+#     Output("modal2", "is_open"),
+#     [Input("1", "value"),
+#      Input('2', 'value'),
+#      Input('3', 'value'),
+#      Input('4', 'value'),
+#      Input('5', 'value'),
+#      Input('textarea1', 'value'),
+#      Input('textarea2', 'value'),
+#      Input('textarea3', 'value'),
+#      Input('textarea4', 'value'),
+#      Input('submit-button', 'n_clicks'),
+#      Input('save', 'n_clicks'),
+#      Input('close', 'n_clicks')],
+#     [State("modal", "is_open"),
+#      State("modal2", "is_open")],
+# )
+# def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4, submitclick, save, close, is_open, is_open2):
+#     if save == 0 and submitclick== 1:
+#         return not is_open, is_open2
+#     elif submitclick >1:
+#         return is_open, not is_open2
+#     elif close:
+#         return not is_open, not is_open2
+#     elif save == 1 and submitclick==1:
+#         print(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4)
+#         return is_open, not is_open2
+#     return is_open, is_open2
+#
+# @app.callback(
+#     Output("hidden_div_for_redirect_callback", "children"),
+#     Output("modal3", "is_open"),
+#     [Input('google-login', 'n_clicks'),
+#      Input('register-manual', 'n_clicks'),
+#      Input('name', 'value'),
+#      Input('email', 'value')],
+#     [State("modal3", "is_open")],
+# )
+# def google_fb_login(a,b, name, email, c,):
+#     print(a,b, name, email, c,)
+#     import flask
+#     allcookies = dict(flask.request.cookies)
+#     print(allcookies)
+#     if a==1 and b==0:
+#         auth = login.AuthPage()
+#         auth_url = auth.GET("google")
+#
+#         return dcc.Location(href=auth_url,
+#                            id="someid"), False
+#     elif b==1:
+#         dash.callback_context.response.set_cookie('_id', "register_manual")
+#         dash.callback_context.response.set_cookie('_profile', "'{"+"name"+":"+ str(name)+"}'")
+#         return "", False
+#     else:
+#         if not allcookies.get('_id') or allcookies['_id'] == '':
+#             return "", True
+#         else:
+#             return "", False

@@ -96,5 +96,8 @@ class LogoutPage:
   def GET(self):
     dash.callback_context.response.set_cookie('_id', '')
     dash.callback_context.response.set_cookie('_profile', '')
+    import flask
+    allcookies = dict(flask.request.cookies)
+    print(allcookies)
     # invalidate '_id' in the cookie to logout the user
 

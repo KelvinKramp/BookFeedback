@@ -32,7 +32,7 @@ navbar = dbc.NavbarSimple(
 
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem("Support through Paypal", href="https://paypal.me/urbankizbook?country.x=NL&locale.x=nl_NL", target="_blank"),
+                dbc.DropdownMenuItem("Support my writing through Paypal", href="https://paypal.me/urbankizbook?country.x=NL&locale.x=nl_NL", target="_blank"),
                 dbc.DropdownMenuItem("Buy a fully illustrated hardcover copy", id="buy", n_clicks=0, href="#"),
             ],
             nav=True,
@@ -42,7 +42,7 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Report a bug", id='report-bug', href="#")),
     ],
     brand="Feedback form - Urban kiz: a new vision on partner dance",
-    brand_href="#",
+    brand_href="/",
     color="primary",
     dark=True,
     sticky=True,
@@ -70,214 +70,214 @@ with open(state_file, 'w') as f:
 app.layout = html.Div(children=[
                             navbar,
                             dcc.Location(id='url', refresh=False),
-                            html.Div(children=[
-                                html.Br(),
-                                dbc.Row([
-                                    dbc.Col(html.H5(introduction_text, style={'width': 'fit-content', 'overflow-wrap': 'break-word'}),
-                                            width={"size": 10, "offset": 1},
-                                            )], ),
-                                html.Br(),
-                                dbc.Row([
-                                    html.H4("Multiple choice questions",
-                                            style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-                                ]),
-                                dbc.Row(children=[
-                                    html.H5("The text was understandable",
-                                            style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-                                    dcc.RadioItems(
-                                        options=score,
-                                        id='1',
-                                        value='',
-                                        labelStyle=labelStyle_score,
-                                        style=style_score,
-                                    ),
-                                ], ),
-                                dbc.Row(children=[
-                                    html.H5("The text had flow",
-                                            style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-                                    dcc.RadioItems(
-                                        options=score,
-                                        id='2',
-                                        value='',
-                                        labelStyle=labelStyle_score,
-                                        style=style_score,
-                                    ),
-                                ], ),
-                                dbc.Row(children=[
-                                    html.H5("The ideas were interesting",
-                                            style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-                                    dcc.RadioItems(
-                                        options=score,
-                                        id='3',
-                                        value='',
-                                        labelStyle=labelStyle_score,
-                                        style=style_score,
-                                    ),
-                                ], ),
-                                dbc.Row(children=[
-                                    html.H5("The text was too long",
-                                            style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-                                    dcc.RadioItems(
-                                        options=score,
-                                        id='4',
-                                        value='',
-                                        labelStyle=labelStyle_score,
-                                        style=style_score,
-                                    ),
-                                ], ),
-                                dbc.Row(children=[
-                                    html.H5("The book was complete",
-                                            style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-                                    dcc.RadioItems(
-                                        options=score,
-                                        id='5',
-                                        value='',
-                                        labelStyle=labelStyle_score,
-                                        style=style_score,
-                                    ),
-                                ], ),
-                                html.Br(),
-                                dbc.Row([
-                                    html.H4("Open questions",
-                                            style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-                                ]),
-                                dbc.Row(children=[
-                                    dbc.Col(
-                                        html.H5(open_question_1,
-                                                style={"display": "inline-block", "width": "100%", },
-                                                ), width={"size": 10, "offset": 2}, ), ]),
-                                dbc.Row(children=[
-                                    dbc.Col(
-                                        dbc.ModalBody(children=(dcc.Textarea(
-                                            id='textarea1',
-                                            value='',
-                                            spellCheck=True,
-                                            style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
-                                        ),),
-                                        ), width={"size": 10, "offset": 2}, ), ]),
-
-                                dbc.Row(children=[
-                                    dbc.Col(
-                                        html.H5(open_question_2,
-                                                style={"display": "inline-block", "width": "100%", },
-                                                ), width={"size": 10, "offset": 2}, ), ]),
-                                dbc.Row(children=[
-                                    dbc.Col(
-                                        dbc.ModalBody(children=(dcc.Textarea(
-                                            id='textarea2',
-                                            value='',
-                                            spellCheck=True,
-                                            style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
-                                        ),),
-                                        ), width={"size": 10, "offset": 2}, ), ]),
-
-                                dbc.Row(children=[
-                                    dbc.Col(
-                                        html.H5(open_question_3,
-                                                style={"display": "inline-block", "width": "100%", },
-                                                ), width={"size": 10, "offset": 2}, ), ]),
-                                dbc.Row(children=[
-                                    dbc.Col(
-                                        dbc.ModalBody(children=(dcc.Textarea(
-                                            id='textarea3',
-                                            value='',
-                                            spellCheck=True,
-                                            style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
-                                        ),),
-                                        ), width={"size": 10, "offset": 2}, ), ]),
-
-                                dbc.Row(children=[
-                                    dbc.Col(
-                                        html.H5(open_question_4,
-                                                style={"display": "inline-block", "width": "100%", },
-                                                ), width={"size": 10, "offset": 2}, ), ]),
-                                dbc.Row(children=[
-                                    dbc.Col(
-                                        dbc.ModalBody(children=(dcc.Textarea(
-                                            id='textarea4',
-                                            value='',
-                                            spellCheck=True,
-                                            style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
-                                        ),),
-                                        ), width={"size": 10, "offset": 2}, ), ]),
-                                html.Br(),
-                                html.Div([
-                                    dbc.Button("Submit", id="submit-button", className="ml-auto", n_clicks=0, style={'width': '150%'},
-                                               ),
-                                ], style={'margin-bottom': '10px',
-                                          'textAlign': 'center',
-                                          'width': '220px',
-                                          'margin': 'auto'}
-                                ),
-                                html.Br(),
-                                html.Div('', id='empty-div-output'),
-                                dbc.Modal(
-                                    [
-                                        dbc.ModalHeader("Do you want to submit the feedback?"),
-                                        dbc.ModalFooter(children=[
-                                            dbc.Button("Submit", id="save", className="ml-auto", n_clicks=0),
-                                        ]
-                                        ),
-                                    ],
-                                    is_open=False,
-                                    id="modal",
-                                    style={"white-space": "break-spaces"},
-                                    backdrop=False
-                                ),
-                                dbc.Modal(
-                                    [
-                                        dbc.ModalHeader("You have submitted. Thank you for giving your feedback"),
-                                        dbc.ModalFooter(children=[
-                                            dbc.Button("Close", id='close', className="ml-auto", n_clicks=0),
-                                        ]
-                                        ),
-                                    ],
-                                    is_open=False,
-                                    id="modal2",
-                                    style={"white-space": "break-spaces"},
-                                    backdrop=False
-                                ),
-                                dbc.Modal(
-                                    [
-                                        dbc.ModalHeader("Register", style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                        dbc.ModalFooter(children=[
-                                            html.Div("Fill in your information to register",
-                                                     style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                            dbc.Row(children=[
-                                                html.Div("First name"),
-                                            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                            dbc.Row(children=[
-                                                dcc.Input(
-                                                    id="name",
-                                                    type="text",
-                                                ), ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                            dbc.Row(children=[
-                                                html.Div("E-mail"),
-                                            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                            dbc.Row(children=[
-                                                dcc.Input(
-                                                    id="email",
-                                                    type="email",
-                                                ), ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                            dbc.Row(children=[
-                                                dbc.Button("Register", id='register-manual', className="ml-auto", n_clicks=0,
-                                                           style={'width': '100%', 'align': 'center', 'display': 'flex',
-                                                                  'justify-content': 'center'}),
-                                            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                            html.Div("Or login with google to automatically register",
-                                                     style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                            dbc.Row(children=[
-                                                dbc.Button("Google", id='google-login', className="ml-auto", n_clicks=0,
-                                                           style={'width': '100%', 'align': 'center', 'display': 'flex',
-                                                                  'justify-content': 'center'}),
-                                            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-                                        ])
-                                    ],
-                                    is_open=state,
-                                    id="modal3",
-                                    style={"white-space": "break-spaces"},
-                                    backdrop=False
-                                ),
+                            html.Div(id="page-content", children=[
+                                # html.Br(),
+                                # dbc.Row([
+                                #     dbc.Col(html.H5(introduction_text, style={'width': 'fit-content', 'overflow-wrap': 'break-word'}),
+                                #             width={"size": 10, "offset": 1},
+                                #             )], ),
+                                # html.Br(),
+                                # dbc.Row([
+                                #     html.H4("Multiple choice questions",
+                                #             style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
+                                # ]),
+                                # dbc.Row(children=[
+                                #     html.H5("The text was understandable",
+                                #             style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
+                                #     dcc.RadioItems(
+                                #         options=score,
+                                #         id='1',
+                                #         value='',
+                                #         labelStyle=labelStyle_score,
+                                #         style=style_score,
+                                #     ),
+                                # ], ),
+                                # dbc.Row(children=[
+                                #     html.H5("The text had flow",
+                                #             style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
+                                #     dcc.RadioItems(
+                                #         options=score,
+                                #         id='2',
+                                #         value='',
+                                #         labelStyle=labelStyle_score,
+                                #         style=style_score,
+                                #     ),
+                                # ], ),
+                                # dbc.Row(children=[
+                                #     html.H5("The ideas were interesting",
+                                #             style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
+                                #     dcc.RadioItems(
+                                #         options=score,
+                                #         id='3',
+                                #         value='',
+                                #         labelStyle=labelStyle_score,
+                                #         style=style_score,
+                                #     ),
+                                # ], ),
+                                # dbc.Row(children=[
+                                #     html.H5("The text was too long",
+                                #             style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
+                                #     dcc.RadioItems(
+                                #         options=score,
+                                #         id='4',
+                                #         value='',
+                                #         labelStyle=labelStyle_score,
+                                #         style=style_score,
+                                #     ),
+                                # ], ),
+                                # dbc.Row(children=[
+                                #     html.H5("The book was complete",
+                                #             style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
+                                #     dcc.RadioItems(
+                                #         options=score,
+                                #         id='5',
+                                #         value='',
+                                #         labelStyle=labelStyle_score,
+                                #         style=style_score,
+                                #     ),
+                                # ], ),
+                                # html.Br(),
+                                # dbc.Row([
+                                #     html.H4("Open questions",
+                                #             style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
+                                # ]),
+                                # dbc.Row(children=[
+                                #     dbc.Col(
+                                #         html.H5(open_question_1,
+                                #                 style={"display": "inline-block", "width": "100%", },
+                                #                 ), width={"size": 10, "offset": 2}, ), ]),
+                                # dbc.Row(children=[
+                                #     dbc.Col(
+                                #         dbc.ModalBody(children=(dcc.Textarea(
+                                #             id='textarea1',
+                                #             value='',
+                                #             spellCheck=True,
+                                #             style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
+                                #         ),),
+                                #         ), width={"size": 10, "offset": 2}, ), ]),
+                                #
+                                # dbc.Row(children=[
+                                #     dbc.Col(
+                                #         html.H5(open_question_2,
+                                #                 style={"display": "inline-block", "width": "100%", },
+                                #                 ), width={"size": 10, "offset": 2}, ), ]),
+                                # dbc.Row(children=[
+                                #     dbc.Col(
+                                #         dbc.ModalBody(children=(dcc.Textarea(
+                                #             id='textarea2',
+                                #             value='',
+                                #             spellCheck=True,
+                                #             style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
+                                #         ),),
+                                #         ), width={"size": 10, "offset": 2}, ), ]),
+                                #
+                                # dbc.Row(children=[
+                                #     dbc.Col(
+                                #         html.H5(open_question_3,
+                                #                 style={"display": "inline-block", "width": "100%", },
+                                #                 ), width={"size": 10, "offset": 2}, ), ]),
+                                # dbc.Row(children=[
+                                #     dbc.Col(
+                                #         dbc.ModalBody(children=(dcc.Textarea(
+                                #             id='textarea3',
+                                #             value='',
+                                #             spellCheck=True,
+                                #             style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
+                                #         ),),
+                                #         ), width={"size": 10, "offset": 2}, ), ]),
+                                #
+                                # dbc.Row(children=[
+                                #     dbc.Col(
+                                #         html.H5(open_question_4,
+                                #                 style={"display": "inline-block", "width": "100%", },
+                                #                 ), width={"size": 10, "offset": 2}, ), ]),
+                                # dbc.Row(children=[
+                                #     dbc.Col(
+                                #         dbc.ModalBody(children=(dcc.Textarea(
+                                #             id='textarea4',
+                                #             value='',
+                                #             spellCheck=True,
+                                #             style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
+                                #         ),),
+                                #         ), width={"size": 10, "offset": 2}, ), ]),
+                                # html.Br(),
+                                # html.Div([
+                                #     dbc.Button("Submit", id="submit-button", className="ml-auto", n_clicks=0, style={'width': '150%'},
+                                #                ),
+                                # ], style={'margin-bottom': '10px',
+                                #           'textAlign': 'center',
+                                #           'width': '220px',
+                                #           'margin': 'auto'}
+                                # ),
+                                # html.Br(),
+                                # html.Div('', id='empty-div-output'),
+                                # dbc.Modal(
+                                #     [
+                                #         dbc.ModalHeader("Do you want to submit the feedback?"),
+                                #         dbc.ModalFooter(children=[
+                                #             dbc.Button("Submit", id="save", className="ml-auto", n_clicks=0),
+                                #         ]
+                                #         ),
+                                #     ],
+                                #     is_open=False,
+                                #     id="modal",
+                                #     style={"white-space": "break-spaces"},
+                                #     backdrop=False
+                                # ),
+                                # dbc.Modal(
+                                #     [
+                                #         dbc.ModalHeader("You have submitted. Thank you for giving your feedback"),
+                                #         dbc.ModalFooter(children=[
+                                #             dbc.Button("Close", id='close', className="ml-auto", n_clicks=0),
+                                #         ]
+                                #         ),
+                                #     ],
+                                #     is_open=False,
+                                #     id="modal2",
+                                #     style={"white-space": "break-spaces"},
+                                #     backdrop=False
+                                # ),
+                                # dbc.Modal(
+                                #     [
+                                #         dbc.ModalHeader("Register", style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #         dbc.ModalFooter(children=[
+                                #             html.Div("Fill in your information to register",
+                                #                      style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #             dbc.Row(children=[
+                                #                 html.Div("First name"),
+                                #             ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #             dbc.Row(children=[
+                                #                 dcc.Input(
+                                #                     id="name",
+                                #                     type="text",
+                                #                 ), ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #             dbc.Row(children=[
+                                #                 html.Div("E-mail"),
+                                #             ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #             dbc.Row(children=[
+                                #                 dcc.Input(
+                                #                     id="email",
+                                #                     type="email",
+                                #                 ), ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #             dbc.Row(children=[
+                                #                 dbc.Button("Register", id='register-manual', className="ml-auto", n_clicks=0,
+                                #                            style={'width': '100%', 'align': 'center', 'display': 'flex',
+                                #                                   'justify-content': 'center'}),
+                                #             ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #             html.Div("Or login with google to automatically register",
+                                #                      style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #             dbc.Row(children=[
+                                #                 dbc.Button("Google", id='google-login', className="ml-auto", n_clicks=0,
+                                #                            style={'width': '100%', 'align': 'center', 'display': 'flex',
+                                #                                   'justify-content': 'center'}),
+                                #             ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+                                #         ])
+                                #     ],
+                                #     is_open=state,
+                                #     id="modal3",
+                                #     style={"white-space": "break-spaces"},
+                                #     backdrop=False
+                                # ),
                             ]),
                             dbc.Row([
                                     dcc.Link('Terms and conditions', href='/apps/term_cond'),
@@ -311,6 +311,8 @@ app.layout = html.Div(children=[
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'href')])
 def display_page(href):
+    print("printing href")
+    print(href)
     from apps import feedback
     # placed import feedback over here because otherwise the loading of the callback is going to be faster then
     # the layout loading, causing an error of input not found of callback
@@ -320,6 +322,7 @@ def display_page(href):
         return term_cond.layout
     elif '/auth/google/callback' in href:
         print(href)
+        print("authenticated")
         url_dict = urllib.parse.parse_qs(href)
         code_item = next(iter(url_dict))
         code = url_dict[code_item][0]
@@ -330,7 +333,6 @@ def display_page(href):
         print(href)
         callback = login.LogoutPage()
         callback.GET()
-
         return feedback.layout
     else:
         return feedback.layout
@@ -408,13 +410,14 @@ def google_fb_login(a,b, name, email, c,):
     print(a,b, name, email, c,)
     import flask
     allcookies = dict(flask.request.cookies)
+    print("these are the current cookies:", allcookies)
     if a==1 and b==0:
         auth = login.AuthPage()
         auth_url = auth.GET("google")
 
         return dcc.Location(href=auth_url,
                            id="someid"), False
-    elif b==1:
+    elif a==0 and b==1:
         dash.callback_context.response.set_cookie('_id', "register_manual")
         dash.callback_context.response.set_cookie('_profile', "'{"+"name"+":"+ str(name)+"}'")
         return "", False
