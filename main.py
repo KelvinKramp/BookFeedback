@@ -11,12 +11,17 @@ import urllib
 import json
 import flask
 import dash
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+from sql import db, Feedback
+
 
 
 # try:
 #     subprocess.run("lsof -t -i tcp:8080 | xargs kill -9", shell=False) # kill the server
 # except Exception as e:
 #     print(e)
+
 
 navbar = dbc.NavbarSimple(
     children=[
@@ -141,6 +146,9 @@ text_old = ""
 def notes_modal(n1, n2, text, is_open):
     print("something")
     global text_old
+    data = Feedback("a", "b", 1, 2,3,4, "c")
+    db.session.add(data)
+    db.session.commit()
     if text != text_old:
         allcookies = dict(flask.request.cookies)
         print(allcookies)
