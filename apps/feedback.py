@@ -1,15 +1,7 @@
 # IMPORT MODULES
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
-from app import app
-from apps import priv_pol, term_cond, feedback, auth, login
-import json
-from http import cookies
-import dash
-
-C = cookies.SimpleCookie()
 
 score = [{'label': 'Strongly agree', 'value': '1'}, {'label': 'Agree', 'value': '2'}, {'label': 'Neutral', 'value': '3'}, {'label': 'Disagree', 'value': '4'}, {'label': 'Strongly disagree', 'value': '5'}]
 style_score = {'display': 'inline-block', 'text-align': 'center', 'display': 'flex',
@@ -19,16 +11,11 @@ labelStyle_score = {'display': 'inline-block', 'text-align': 'right','width': '1
 introduction_text = """You've received a copy because you have contributed directly or indirectly to the writing or because you were just genuinely interested in what I've written down. 
                                         I didn't explicitely tell you that it wasn't the final version because I wanted you to read as if it was the real thing. 
                                         If you've had the time to read it, or parts of it, I would love to hear your opinion and use it in the final version before I
-                                        go public."""
+                                        go public. To be able to improve quality it is important that you are as honest as possible."""
 open_question_1 = "What did you think was the most interesting chapter and why?"
 open_question_2 = "Did you get stuck/disinterested while reading? and if yes where and why?"
 open_question_3 = "If you think it was incomplete can you tell me what you think was missing?"
 open_question_4 = "Do you have any other comments?"
-global state_file
-state=True # state of the login modal window at opening the website
-state_file = 'state_modal.json'
-with open(state_file, 'w') as f:
-    f.write('{"state": "True"}')
 
 layout = html.Div(children=[
         html.Br(),
@@ -230,70 +217,9 @@ layout = html.Div(children=[
                     ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
                     ])
                 ],
-            is_open=state,
+            is_open=True,
             id="modal3",
             style={"white-space": "break-spaces"},
             backdrop=False
         ),
     ])
-#
-# ### CALLBACKS ## the numbers are LETTER O followed by a number
-# @app.callback(
-#     Output("modal", "is_open"),
-#     Output("modal2", "is_open"),
-#     [Input("1", "value"),
-#      Input('2', 'value'),
-#      Input('3', 'value'),
-#      Input('4', 'value'),
-#      Input('5', 'value'),
-#      Input('textarea1', 'value'),
-#      Input('textarea2', 'value'),
-#      Input('textarea3', 'value'),
-#      Input('textarea4', 'value'),
-#      Input('submit-button', 'n_clicks'),
-#      Input('save', 'n_clicks'),
-#      Input('close', 'n_clicks')],
-#     [State("modal", "is_open"),
-#      State("modal2", "is_open")],
-# )
-# def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4, submitclick, save, close, is_open, is_open2):
-#     if save == 0 and submitclick== 1:
-#         return not is_open, is_open2
-#     elif submitclick >1:
-#         return is_open, not is_open2
-#     elif close:
-#         return not is_open, not is_open2
-#     elif save == 1 and submitclick==1:
-#         print(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4)
-#         return is_open, not is_open2
-#     return is_open, is_open2
-#
-# @app.callback(
-#     Output("hidden_div_for_redirect_callback", "children"),
-#     Output("modal3", "is_open"),
-#     [Input('google-login', 'n_clicks'),
-#      Input('register-manual', 'n_clicks'),
-#      Input('name', 'value'),
-#      Input('email', 'value')],
-#     [State("modal3", "is_open")],
-# )
-# def google_fb_login(a,b, name, email, c,):
-#     print(a,b, name, email, c,)
-#     import flask
-#     allcookies = dict(flask.request.cookies)
-#     print(allcookies)
-#     if a==1 and b==0:
-#         auth = login.AuthPage()
-#         auth_url = auth.GET("google")
-#
-#         return dcc.Location(href=auth_url,
-#                            id="someid"), False
-#     elif b==1:
-#         dash.callback_context.response.set_cookie('_id', "register_manual")
-#         dash.callback_context.response.set_cookie('_profile', "'{"+"name"+":"+ str(name)+"}'")
-#         return "", False
-#     else:
-#         if not allcookies.get('_id') or allcookies['_id'] == '':
-#             return "", True
-#         else:
-#             return "", False
