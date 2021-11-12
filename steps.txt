@@ -9,8 +9,8 @@ change file writing state to true
 run upload script
 
 TO DO
-- report a bug modal window
-- log out function
+- log out function x
+- report a bug modal window x
 - replace button with login button
 - buy fully illustrated -> modal: I will incorporate the feedback I get. You will receive a mail when the book is ready
 

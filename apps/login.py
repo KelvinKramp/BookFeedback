@@ -6,6 +6,11 @@ import json
 from apps import auth
 import os
 import json
+from http import cookies
+import dash
+
+
+C = cookies.SimpleCookie()
 
 if "Users" in os.getcwd():
   secrets = 'secrets.json'
@@ -48,20 +53,13 @@ class handler(auth.handler):
       profile: the user profile of Google or facebook account of the user who
                signs in.
     """
+    # set cookies
     user_id = '%s:%s' % (provider, profile['id'])
+    dash.callback_context.response.set_cookie('_id', user_id)
+    dash.callback_context.response.set_cookie('_profile', json.dumps(profile))
 
-    # set '_id' in the cookie to sign-in the user in our webapp
-    # web.setcookie('_id', user_id)
-    # web.setcookie('_profile', json.dumps(profile))
-    user_name = profile['given_name']
-    print(user_name)
-    userinfo = 'userinfo.json'
-    info = json.dumps(profile)
-    with open(userinfo, 'w') as f:
-      f.write(info)
 
 class AuthPage(handler):
-  print("logging in")
   def GET(self, provider):
     auth_url = self.auth_init(provider)
     return auth_url
@@ -69,6 +67,7 @@ class AuthPage(handler):
 
 class AuthCallbackPage(handler):
   def GET(self, provider, code):
+    print("this is function GET")
     self.auth_callback(provider, code)
 
 
@@ -95,7 +94,7 @@ class LoginPage:
 
 class LogoutPage:
   def GET(self):
+    dash.callback_context.response.set_cookie('_id', '')
+    dash.callback_context.response.set_cookie('_profile', '')
     # invalidate '_id' in the cookie to logout the user
-    web.setcookie('_id', '', 0)
-    raise web.seeother('/')
 

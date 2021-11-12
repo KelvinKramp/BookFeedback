@@ -6,6 +6,10 @@ import dash_bootstrap_components as dbc
 from app import app
 from apps import priv_pol, term_cond, feedback, auth, login
 import json
+from http import cookies
+import dash
+
+C = cookies.SimpleCookie()
 
 score = [{'label': 'Strongly agree', 'value': '1'}, {'label': 'Agree', 'value': '2'}, {'label': 'Neutral', 'value': '3'}, {'label': 'Disagree', 'value': '4'}, {'label': 'Strongly disagree', 'value': '5'}]
 style_score = {'display': 'inline-block', 'text-align': 'center', 'display': 'flex',
@@ -195,22 +199,37 @@ layout = html.Div(children=[
         ),
         dbc.Modal(
             [
-                dbc.ModalHeader("Login with Google or Facebook"),
+                dbc.ModalHeader("Register", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
                 dbc.ModalFooter(children=[
+                    html.Div("Fill in your information to register", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
                     dbc.Row(children=[
-                    dbc.Button("Google", id='google-login', className="ml-auto", n_clicks=0),
-                    dbc.Col(""),
-                    dbc.Button("Facebook", id='facebook-login', className="ml-auto", n_clicks=0),
-                        dbc.Col(""),
-                        dbc.Col(""),
-                        dbc.Col(""),
-                        dbc.Col(""),
-                        html.Div(id="hidden_div_for_redirect_callback")
-                        ], align='center', justify='center'
-                    )
-                ]
-                ),
-            ],
+                        html.Div("First name"),
+                    ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    dbc.Row(children=[
+                    dcc.Input(
+                                id="name",
+                                type="text",
+                    ),],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    dbc.Row(children=[
+                        html.Div("E-mail"),
+                    ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    dbc.Row(children=[
+                    dcc.Input(
+                        id="email",
+                        type="email",
+                    ),],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    dbc.Row(children=[
+                        dbc.Button("Register", id='register-manual', className="ml-auto", n_clicks=0,
+                                   style={'width': '100%', 'align': 'center', 'display': 'flex',
+                                          'justify-content': 'center'}),
+                    ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    html.Div("Or login with google to automatically register", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    dbc.Row(children=[
+                        dbc.Button("Google", id='google-login', className="ml-auto", n_clicks=0,
+                                   style={'width': '100%', 'align':'center', 'display': 'flex', 'justify-content': 'center'}),
+                    ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    ])
+                ],
             is_open=state,
             id="modal3",
             style={"white-space": "break-spaces"},
@@ -222,7 +241,7 @@ layout = html.Div(children=[
 @app.callback(
     Output("modal", "is_open"),
     Output("modal2", "is_open"),
-    [Input('1', 'value'),
+    [Input("1", "value"),
      Input('2', 'value'),
      Input('3', 'value'),
      Input('4', 'value'),
@@ -253,29 +272,27 @@ def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, 
     Output("hidden_div_for_redirect_callback", "children"),
     Output("modal3", "is_open"),
     [Input('google-login', 'n_clicks'),
-     Input('facebook-login', 'n_clicks')],
+     Input('register-manual', 'n_clicks'),
+     Input('name', 'value'),
+     Input('email', 'value')],
     [State("modal3", "is_open")],
 )
-def google_fb_login(a,b,c):
-    print(a,b,c)
-    print(c)
-    # read state file
-    with open(state_file) as f:
-        state = json.load(f)
-    state = eval(state["state"])
-    if a==1:
+def google_fb_login(a,b, name, email, c,):
+    print(a,b, name, email, c,)
+    import flask
+    allcookies = dict(flask.request.cookies)
+    if a==1 and b==0:
         auth = login.AuthPage()
         auth_url = auth.GET("google")
-        if "code" in auth_url:
-            # write to state file
-            with open(state_file, 'w') as f:
-                f.write('{"state": "False"}')
+
         return dcc.Location(href=auth_url,
                            id="someid"), False
     elif b==1:
+        dash.callback_context.response.set_cookie('_id', "register_manual")
+        dash.callback_context.response.set_cookie('_profile', "'{"+"name"+":"+ str(name)+"}'")
         return "", False
     else:
-        if not state:
-            return "", False
-        else:
+        if not allcookies.get('_id') or allcookies['_id'] == '':
             return "", True
+        else:
+            return "", False

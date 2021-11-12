@@ -5,7 +5,8 @@ import urllib
 import urllib.parse
 import json
 import requests
-
+from http import cookies
+C = cookies.SimpleCookie()
 parameters = {
   'google': {
     'app_id': None,
@@ -48,9 +49,11 @@ class handler:
   def auth_callback(self, provider, code):
     """Callback handler for auth process
     """
+    print("this is function auth callback")
     self._oauth2_callback(provider, code)
 
   def on_signin(self, provider, profile):
+    print("this is function signin")
     """Callback when the user successfully signs in the account of the provider
     (e.g., Google account or Facebook account). Developers should overwrite this
     funciton.
@@ -82,6 +85,7 @@ class handler:
       web.setcookie('_id', user_id)
       ```
 
+
     5. Redirect the user to other page. For example,
       ```
       raise web.seeother('/profile')
@@ -90,8 +94,9 @@ class handler:
     """
 
     user_id = '%s:%s' % (provider, profile['id'])
-    print(user_id)
-    # raise NotImplementedError
+
+    # set '_id' in the cookie to sign-in the user in our webapp
+    raise NotImplementedError
 
   def _http_get(self, url, args=None):
     """Python HTTP GET request
@@ -171,6 +176,7 @@ class handler:
     Case 2) If auth ok, get access_token first, and then use the access_token to
             retrieve user profile.
     """
+    print("this is function oauth callback")
     self._check_provider(provider)
 
     # check whether auth is ok, if not ok, raise Exception.
@@ -178,7 +184,7 @@ class handler:
     # if error:
     #   raise Exception(error)
 
-
+    print("test1")
     args = {
       'code': code,
       'client_id': parameters[provider]['app_id'], 
@@ -190,15 +196,21 @@ class handler:
     _parser = getattr(self, '%s' % self.PROVIDERS[provider][3])
     response = _parser(
         self._http_post(self.PROVIDERS[provider][2], args).read())
+    print("test2")
+
     if response.get('error'):
       raise Exception(response)
 
     # access_token is ready, get user profile.
+    print("test3")
+
     _fetcher = getattr(self, '_get_%s_user_data' % provider)
     profile = _fetcher(response['access_token'])
+    self.on_signin(provider, profile)
+    print("test4")
 
     # user profile ok. call on_signin function
-    self.on_signin(provider, profile)
+
 
   def callback_uri(self, provider):
     """Should overwrite this method in child class.
