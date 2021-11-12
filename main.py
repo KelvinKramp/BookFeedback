@@ -6,6 +6,7 @@ import dash_bootstrap_components as dbc
 import subprocess
 from apps import priv_pol, term_cond, thanks, login # feedback app is imported in the callback because otherwise error due to to late loading of form
 from app import app
+from app import server
 import urllib
 import json
 import flask
