@@ -1,9 +1,6 @@
 import dash
 import dash_bootstrap_components as dbc
-from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from app import app
-from app import server
 import configparser
 import os
 
