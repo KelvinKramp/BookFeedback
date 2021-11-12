@@ -12,13 +12,10 @@ introduction_text = """You've received a copy because you have contributed direc
                                         I didn't explicitely tell you that it wasn't the final version because I wanted you to read as if it was the real thing. 
                                         If you've had the time to read it, or parts of it, I would love to hear your opinion and use it in the final version before I
                                         go public. To be able to improve quality it is important that you are as honest as possible."""
-open_question_1 = "What do you think was the most interesting chapter and why?"
+open_question_1 = "What did you think was the most interesting chapter and why?"
 open_question_2 = "Did you get stuck/disinterested while reading? and if yes where and why?"
-open_question_3 = "What could be improved in the illustrations?"
-open_question_4 = "If you think it was incomplete can you tell me what you think was missing?"
-open_question_5 = "Is there something you missed in the interviews?"
-open_question_6 = "Is there someone you think should have been interviewed?"
-open_question_7 = "Do you have any comments?"
+open_question_3 = "If you think it was incomplete can you tell me what you think was missing?"
+open_question_4 = "Do you have any other comments?"
 
 layout = html.Div(children=[
         html.Br(),
@@ -27,14 +24,12 @@ layout = html.Div(children=[
                     width={"size": 10, "offset": 1},
                     )], ),
         html.Br(),
-
-        ## Readability comprehensibility
         dbc.Row([
-            html.H4("Readability/comprehensibilty",
+            html.H4("Multiple choice questions",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
         ]),
         dbc.Row(children=[
-            html.H5("The text had flow",
+            html.H5("The text was understandable",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -45,7 +40,7 @@ layout = html.Div(children=[
             ),
         ], ),
         dbc.Row(children=[
-            html.H5("The text was enjoyable to read",
+            html.H5("The text had flow",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -56,7 +51,7 @@ layout = html.Div(children=[
             ),
         ], ),
         dbc.Row(children=[
-            html.H5("The text was understandable",
+            html.H5("The ideas were interesting",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -67,7 +62,7 @@ layout = html.Div(children=[
             ),
         ], ),
         dbc.Row(children=[
-            html.H5("The ideas were interesting",
+            html.H5("The text was too long",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -78,7 +73,7 @@ layout = html.Div(children=[
             ),
         ], ),
         dbc.Row(children=[
-            html.H5("The text was too long",
+            html.H5("The book was complete",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -88,6 +83,11 @@ layout = html.Div(children=[
                 style=style_score,
             ),
         ], ),
+        html.Br(),
+        dbc.Row([
+            html.H4("Open questions",
+                    style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
+        ]),
         dbc.Row(children=[
             dbc.Col(
                 html.H5(open_question_1,
@@ -102,6 +102,7 @@ layout = html.Div(children=[
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
                 ),),
                 ), width={"size": 10, "offset": 2}, ), ]),
+
         dbc.Row(children=[
             dbc.Col(
                 html.H5(open_question_2,
@@ -116,24 +117,7 @@ layout = html.Div(children=[
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
                 ),),
                 ), width={"size": 10, "offset": 2}, ), ]),
-        html.Br(),
 
-        ## Illustrations
-        dbc.Row([
-            html.H4("Illustrations",
-                    style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-        ]),
-        dbc.Row(children=[
-            html.H5("Were the illustrations helpfull?",
-                    style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-            dcc.RadioItems(
-                options=score,
-                id='5',
-                value='',
-                labelStyle=labelStyle_score,
-                style=style_score,
-            ),
-        ], ),
         dbc.Row(children=[
             dbc.Col(
                 html.H5(open_question_3,
@@ -148,26 +132,7 @@ layout = html.Div(children=[
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
                 ),),
                 ), width={"size": 10, "offset": 2}, ), ]),
-        html.Br(),
 
-        # c5
-        # o3
-        ## Completeness
-        dbc.Row([
-            html.H4("Completeness",
-                    style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-        ]),
-        dbc.Row(children=[
-            html.H5("Do you think there were things missing?",
-                    style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-            dcc.RadioItems(
-                options=score,
-                id='6',
-                value='',
-                labelStyle=labelStyle_score,
-                style=style_score,
-            ),
-        ], ),
         dbc.Row(children=[
             dbc.Col(
                 html.H5(open_question_4,
@@ -182,84 +147,6 @@ layout = html.Div(children=[
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
                 ),),
                 ), width={"size": 10, "offset": 2}, ), ]),
-        html.Br(),
-
-        # o4
-        # c6
-        # Interviews
-        dbc.Row([
-        html.H4("Interviews",
-                    style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-        ]),
-        html.Br(),
-        dbc.Row(children=[
-            html.H5("The interviews helped understand the different perspectives on partner dance?",
-                    style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-            dcc.RadioItems(
-                options=score,
-                id='7',
-                value='',
-                labelStyle=labelStyle_score,
-                style=style_score,
-            ),
-        ], ),
-        dbc.Row(children=[
-            dbc.Col(
-                html.H5(open_question_5,
-                        style={"display": "inline-block", "width": "100%", },
-                        ), width={"size": 10, "offset": 2}, ), ]),
-        dbc.Row(children=[
-            dbc.Col(
-                dbc.ModalBody(children=(dcc.Textarea(
-                    id='textarea5',
-                    value='',
-                    spellCheck=True,
-                    style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
-                ),),
-                ), width={"size": 10, "offset": 2}, ), ]),
-        dbc.Row(children=[
-            dbc.Col(
-                html.H5(open_question_6,
-                        style={"display": "inline-block", "width": "100%", },
-                        ), width={"size": 10, "offset": 2}, ), ]),
-        dbc.Row(children=[
-            dbc.Col(
-                dbc.ModalBody(children=(dcc.Textarea(
-                    id='textarea6',
-                    value='',
-                    spellCheck=True,
-                    style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
-                ),),
-                ), width={"size": 10, "offset": 2}, ), ]),
-        dbc.Row(children=[
-            html.H5(
-                "(If you have been interviewed and you encountered any errors in your own interview don't hesitate to notify me personally.)",
-                style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-        ], ),
-        html.Br(),
-
-        # Open comments
-        html.H4("Open comments",
-                style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
-        dbc.Row(children=[
-            dbc.Col(
-                html.H5(open_question_7,
-                        style={"display": "inline-block", "width": "100%", },
-                        ), width={"size": 10, "offset": 2}, ), ]),
-        dbc.Row(children=[
-            dbc.Col(
-                dbc.ModalBody(children=(dcc.Textarea(
-                    id='textarea7',
-                    value='',
-                    spellCheck=True,
-                    style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
-                ),),
-                ), width={"size": 10, "offset": 2}, ), ]),
-
-
-
-
-        # BUTTONS AND MODALS
         html.Br(),
         html.Div([
             dbc.Button("Submit", id="submit-button", className="ml-auto", n_clicks=0, style={'width': '150%'},

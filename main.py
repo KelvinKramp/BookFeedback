@@ -8,15 +8,14 @@ from apps import priv_pol, term_cond, thanks, login # feedback app is imported i
 from app import app
 import urllib
 import json
-from http import cookies
 import flask
 import dash
 
 
-try:
-    subprocess.run("lsof -t -i tcp:8080 | xargs kill -9", shell=False) # kill the server
-except Exception as e:
-    print(e)
+# try:
+#     subprocess.run("lsof -t -i tcp:8080 | xargs kill -9", shell=False) # kill the server
+# except Exception as e:
+#     print(e)
 
 navbar = dbc.NavbarSimple(
     children=[
@@ -101,7 +100,14 @@ def display_page(href):
     from apps import feedback
     # placed import feedback over here because otherwise the loading of the callback is going to be faster then
     # the layout loading, causing an error of input not found of callback
-    if '/apps/priv_pol' in href:
+    allcookies = dict(flask.request.cookies)
+    print("printing allcookies for displaying page")
+    print(allcookies)
+    if ("/thanks" in href) or allcookies.get('_close'):
+        print(href)
+        dash.callback_context.response.set_cookie('_close', "submitted_form")
+        return thanks.layout
+    elif '/apps/priv_pol' in href:
         return priv_pol.layout
     elif '/apps/term_cond' in href:
         return term_cond.layout
@@ -119,9 +125,6 @@ def display_page(href):
         callback = login.LogoutPage()
         callback.GET()
         return feedback.layout
-    elif "/thanks" in href:
-        print(href)
-        return thanks.layout
     else:
         return feedback.layout
 
@@ -175,17 +178,22 @@ def hardcover_modal(n1, n2, is_open):
      Input('3', 'value'),
      Input('4', 'value'),
      Input('5', 'value'),
+     Input('6', 'value'),
+     Input('7', 'value'),
      Input('textarea1', 'value'),
      Input('textarea2', 'value'),
      Input('textarea3', 'value'),
      Input('textarea4', 'value'),
+     Input('textarea5', 'value'),
+     Input('textarea6', 'value'),
+     Input('textarea7', 'value'),
      Input('submit-button', 'n_clicks'),
      Input('save', 'n_clicks'),
      Input('close', 'n_clicks')],
     [State("modal", "is_open"),
      State("modal2", "is_open")],
 )
-def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4, submitclick, save, close, is_open, is_open2):
+def submit(Question1, Question2, Question3, Question4, Question5, Question6, Question7,text1, text2, text3, text4, text5, text6, text7, submitclick, save, close, is_open, is_open2):
     if save == 0 and submitclick== 1:
         return not is_open, is_open2, None
     elif submitclick >1:
@@ -209,7 +217,6 @@ def submit(Question1, Question2, Question3, Question4, Question5, text1, text2, 
 )
 def google_manual_login(a,b, name, email, c,):
     print(a,b, name, email, c,)
-    import flask
     allcookies = dict(flask.request.cookies)
     print("these are the current cookies:", allcookies)
     if a==1 and b==0:
