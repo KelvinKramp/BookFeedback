@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-import web
 import urllib
 import urllib.parse
 import json
