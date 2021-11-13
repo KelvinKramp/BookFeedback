@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
+
+#
+# code copied from https://github.com/siongui/webpy-oauth
+#
+
+
 import urllib
 import urllib.parse
 import json

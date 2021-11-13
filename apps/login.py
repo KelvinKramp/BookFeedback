@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+#
+# code copied from https://github.com/siongui/webpy-oauth
+#
+
 from apps import auth
 import os
 import json
