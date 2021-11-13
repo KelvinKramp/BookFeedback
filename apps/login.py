@@ -4,11 +4,8 @@
 from apps import auth
 import os
 import json
-from http import cookies
 import dash
 
-
-C = cookies.SimpleCookie()
 
 if "Users" in os.getcwd():
   secrets = 'secrets.json'

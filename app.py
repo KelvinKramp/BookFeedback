@@ -33,17 +33,17 @@ class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), unique=False)
     email = db.Column(db.String(200), unique=True)
-    Q_C1 = db.Column(db.Integer)
-    Q_C2 = db.Column(db.Integer)
-    Q_C3 = db.Column(db.Integer)
-    Q_C4 = db.Column(db.Integer)
-    comments = db.Column(db.Text())
-
-    def __init__(self, name, email, Q_C1, Q_C2, Q_C3, Q_C4, comments):
-        self.name = name
-        self.email = email
-        self.Q_C1 = db.Column(db.Integer)
-        self.Q_C2 = db.Column(db.Integer)
-        self.Q_C3 = db.Column(db.Integer)
-        self.Q_C4 = db.Column(db.Integer)
-        self.comments = db.Column(db.Text())
+    # Q_C1 = db.Column(db.Integer)
+    # Q_C2 = db.Column(db.Integer)
+    # Q_C3 = db.Column(db.Integer)
+    # Q_C4 = db.Column(db.Integer)
+    # comments = db.Column(db.Text())
+    #
+    # def __init__(self, name, email, Q_C1, Q_C2, Q_C3, Q_C4, comments):
+    #     self.name = name
+    #     self.email = email
+    #     self.Q_C1 = db.Column(db.Integer)
+    #     self.Q_C2 = db.Column(db.Integer)
+    #     self.Q_C3 = db.Column(db.Integer)
+    #     self.Q_C4 = db.Column(db.Integer)
+    #     self.comments = db.Column(db.Text())
