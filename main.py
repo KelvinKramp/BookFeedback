@@ -3,17 +3,14 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
-import subprocess
 from apps import priv_pol, term_cond, thanks, login # feedback app is imported in the callback because otherwise error due to to late loading of form
 from app import app
-from app import server
 import urllib
 import json
 import flask
 import dash
-from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
-from app import db, Feedback
+from app import db, Feedback_Book
+import subprocess
 
 # try:
 #     subprocess.run("lsof -t -i tcp:8080 | xargs kill -9", shell=False) # kill the server
@@ -132,11 +129,8 @@ text_old = ""
     [Input("report-bug", "n_clicks"), Input("send-email", "n_clicks"), Input("textarea", "value")],
     [State("modal-bug", "is_open")],
 )
-def notes_modal(n1, n2, text, is_open):
+def report_bug_modal(n1, n2, text, is_open):
     global text_old
-    data = Feedback("a", "b", 1, 2,3,4, "c")
-    db.session.add(data)
-    db.session.commit()
     if text != text_old:
         allcookies = dict(flask.request.cookies)
         print(allcookies)
@@ -199,7 +193,20 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
         return not is_open, not is_open2, dcc.Location(href="/thanks",
                            id="someid")
     elif save == 1 and submitclick==1:
-        print(Question1, Question2, Question3, Question4, Question5, text1, text2, text3, text4)
+        try:
+            allcookies = dict(flask.request.cookies)
+            d = allcookies['_profile']
+            d = json.loads(d)
+            name = d['name']
+            email = d['email']
+            print((name, email, Question1, Question2, Question3, Question4, Question5, Question6, Question7,text1, text2, text3, text4, text5, text6, text7))
+            feedback_info = Feedback_Book(int(Question1), int(Question2), int(Question3), int(Question4), int(Question5), int(Question6), int(Question7), str(text1), str(text2), str(text3), str(text4), str(text5), str(text6), str(text7))
+            db.session.add(feedback_info)
+            db.session.commit()
+        except Exception as e:
+            error_file = "errors.json"
+            with open(error_file, 'w') as f:
+                f.write(e + "\n")
         return is_open, not is_open2, None
     return is_open, is_open2, None
 
