@@ -7,16 +7,14 @@ from apps import priv_pol, term_cond, thanks, login # feedback app is imported i
 from app import app
 import urllib
 import json
-import flask
+from flask import request
 import dash
-from app import db, Feedback_Book
-import subprocess
-from app import server
+from app import db, Feedback_Book, Report_Bug, Buy_Hardcover
+from app import server # = necessary import
+from datetime import datetime as dt
+from datetime import timezone
+import time
 
-# try:
-#     subprocess.run("lsof -t -i tcp:8080 | xargs kill -9", shell=False) # kill the server
-# except Exception as e:
-#     print(e)
 
 navbar = dbc.NavbarSimple(
     children=[
@@ -29,7 +27,7 @@ navbar = dbc.NavbarSimple(
             in_navbar=True,
             label="Support",
         ),
-        dbc.NavItem(dbc.NavLink("Report a bug", id='report-bug', href="#")),
+        dbc.NavItem(dbc.NavLink("Report a bug", id='report-bug', n_clicks=0, href="/report-bug")),
         dbc.NavItem(dbc.NavLink("Logout", id="logout", href="/logout")),
     ],
     brand="Feedback form - Urban kiz: a new vision on partner dance",
@@ -96,10 +94,12 @@ def display_page(href):
     from apps import feedback
     # placed import feedback over here because otherwise the loading of the callback is going to be faster then
     # the layout loading, causing an error of input not found of callback
-    allcookies = dict(flask.request.cookies)
+    allcookies = dict(request.cookies)
     print("printing allcookies for displaying page")
     print(allcookies)
-    if ("/thanks" in href) or allcookies.get('_close'):
+    if "/report-bug" in href:
+        return feedback.layout
+    elif ("/thanks" in href) or allcookies.get('_close'):
         dash.callback_context.response.set_cookie('_close', "submitted_form")
         return thanks.layout
     elif '/apps/priv_pol' in href:
@@ -117,13 +117,14 @@ def display_page(href):
     elif "/logout" in href:
         callback = login.LogoutPage()
         callback.GET()
+        time.sleep(2)
+        allcookies = dict(request.cookies)
+        print("this are the cookies after logging out")
+        print(allcookies)
         return feedback.layout
     else:
         return feedback.layout
 
-
-global text_old
-text_old = ""
 
 @app.callback(
     Output("modal-bug", "is_open"),
@@ -131,25 +132,29 @@ text_old = ""
     [State("modal-bug", "is_open")],
 )
 def report_bug_modal(n1, n2, text, is_open):
-    global text_old
-    if text != text_old:
-        allcookies = dict(flask.request.cookies)
+    if (n1 > n2) and not text:
+        return not is_open
+    elif (n1 == n2) and text:
+        allcookies = dict(request.cookies)
         print(allcookies)
         try:
             d = allcookies['_profile']
             d = json.loads(d)
             name = d['name']
+            email = d['email']
+            print(name, email, text)
+            report_bug = Report_Bug(name=name, email=email, bug=text)
         except Exception as e:
             print(e)
             name = "Unknown"
-        bug_file = 'bug.json'
-        with open(bug_file, 'w') as f:
-            f.write(str({name:text}) + "\n")
-        text_old = text
-        return is_open
-    elif n2 or n1:
+            email = "Unknown"
+            print(name, email, text)
+            report_bug = Report_Bug(name=name, email=email, bug=text)
+        db.session.add(report_bug)
+        db.session.commit()
         return not is_open
-    return is_open
+    else:
+        return is_open
 
 @app.callback(
     Output("modal-hardcover", "is_open"),
@@ -157,7 +162,26 @@ def report_bug_modal(n1, n2, text, is_open):
     [State("modal-hardcover", "is_open")],
 )
 def hardcover_modal(n1, n2, is_open):
-    if n1 or n2:
+    if n1 ==1 and n2 ==0:
+        allcookies = dict(request.cookies)
+        time = str(dt.now(timezone.utc))
+        try:
+            d = allcookies['_profile']
+            d = json.loads(d)
+            name = d['name']
+            email = d['email']
+            print(name, email, True)
+            buy_hardcover = Buy_Hardcover(name=name, email=email, buy=True, time=time)
+        except Exception as e:
+            print(e)
+            name = "Unknown"
+            email = "Unknown"
+            print(name, email, True)
+            buy_hardcover = Buy_Hardcover(name=name, email=email, bug=True, time=time)
+        db.session.add(buy_hardcover)
+        db.session.commit()
+        return not is_open
+    if n1==1 and n2==1:
         return not is_open
     return is_open
 
@@ -195,7 +219,7 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
                            id="someid")
     elif save == 1 and submitclick==1:
         try:
-            allcookies = dict(flask.request.cookies)
+            allcookies = dict(request.cookies)
             d = allcookies['_profile']
             d = json.loads(d)
             name = d['name']
@@ -221,7 +245,7 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
     [State("modal3", "is_open")],
 )
 def google_manual_login(a,b, name, email, c,):
-    allcookies = dict(flask.request.cookies)
+    allcookies = dict(request.cookies)
     if a==1 and b==0:
         auth = login.AuthPage()
         auth_url = auth.GET("google")
@@ -231,7 +255,12 @@ def google_manual_login(a,b, name, email, c,):
     elif a==0 and b==1:
         dash.callback_context.response.set_cookie('_id', "register_manual")
         dash.callback_context.response.set_cookie('_profile', '{'+'"name"'+':"'+ str(name)+'",'+'"email"'+':"'+ str(email)+'"}')
-        return "", False
+        time.sleep(2)
+        allcookies = dict(request.cookies)
+        print("this are the cookies after logging in")
+        print(allcookies)
+        return dcc.Location(href='/',
+                           id="someid2"), False
     else:
         if not allcookies.get('_id') or allcookies['_id'] == '':
             return "", True

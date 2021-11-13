@@ -5,6 +5,10 @@ import configparser
 import os
 import json
 
+#
+# If you dont want people to send their feedback multiple times with the same email address change the  value of unique to False in the classess beneath
+#
+
 # MAKE DIFFERENCE BETWEEN PRODUCTION AND DEVELOPMENT ENVIRONMENT
 if "Users" in os.getcwd():
   secrets = 'secrets.json'
@@ -33,7 +37,7 @@ class Feedback_Book(db.Model):
     __tablename__ = 'feedback_book'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=False)
-    email = db.Column(db.String(50), unique=True)
+    email = db.Column(db.String(50), unique=False)
     Q_C1 = db.Column(db.Integer)
     Q_C2 = db.Column(db.Integer)
     Q_C3 = db.Column(db.Integer)
@@ -41,10 +45,25 @@ class Feedback_Book(db.Model):
     Q_C5 = db.Column(db.Integer)
     Q_C6 = db.Column(db.Integer)
     Q_C7 = db.Column(db.Integer)
-    Q_open1 = db.Column(db.String(1000), unique=False)
-    Q_open2 = db.Column(db.String(1000), unique=False)
-    Q_open3 = db.Column(db.String(1000), unique=False)
-    Q_open4 = db.Column(db.String(1000), unique=False)
-    Q_open5 = db.Column(db.String(1000), unique=False)
-    Q_open6 = db.Column(db.String(1000), unique=False)
-    Q_open7 = db.Column(db.String(1000), unique=False)
+    Q_open1 = db.Column(db.String(2000), unique=False)
+    Q_open2 = db.Column(db.String(2000), unique=False)
+    Q_open3 = db.Column(db.String(2000), unique=False)
+    Q_open4 = db.Column(db.String(2000), unique=False)
+    Q_open5 = db.Column(db.String(2000), unique=False)
+    Q_open6 = db.Column(db.String(2000), unique=False)
+    Q_open7 = db.Column(db.String(2000), unique=False)
+
+class Report_Bug(db.Model):
+    __tablename__ = 'report_bug'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=False)
+    email = db.Column(db.String(50), unique=False)
+    bug = db.Column(db.String(2000), unique=False)
+
+class Buy_Hardcover(db.Model):
+    __tablename__ = 'buy_hardcover'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=False)
+    email = db.Column(db.String(50), unique=False)
+    buy = db.Column(db.Boolean, default=False)
+    time = db.Column(db.String(100), unique=False)

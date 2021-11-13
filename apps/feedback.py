@@ -97,6 +97,7 @@ layout = html.Div(children=[
             dbc.Col(
                 dbc.ModalBody(children=(dcc.Textarea(
                     id='textarea1',
+                    maxLength='1999',
                     value='',
                     spellCheck=True,
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
@@ -111,6 +112,7 @@ layout = html.Div(children=[
             dbc.Col(
                 dbc.ModalBody(children=(dcc.Textarea(
                     id='textarea2',
+                    maxLength='1999',
                     value='',
                     spellCheck=True,
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
@@ -143,6 +145,7 @@ layout = html.Div(children=[
             dbc.Col(
                 dbc.ModalBody(children=(dcc.Textarea(
                     id='textarea3',
+                    maxLength='1999',
                     value='',
                     spellCheck=True,
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
@@ -177,6 +180,7 @@ layout = html.Div(children=[
             dbc.Col(
                 dbc.ModalBody(children=(dcc.Textarea(
                     id='textarea4',
+                    maxLength='1999',
                     value='',
                     spellCheck=True,
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
@@ -212,6 +216,7 @@ layout = html.Div(children=[
             dbc.Col(
                 dbc.ModalBody(children=(dcc.Textarea(
                     id='textarea5',
+                    maxLength='1999',
                     value='',
                     spellCheck=True,
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
@@ -226,6 +231,7 @@ layout = html.Div(children=[
             dbc.Col(
                 dbc.ModalBody(children=(dcc.Textarea(
                     id='textarea6',
+                    maxLength='1999',
                     value='',
                     spellCheck=True,
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
@@ -250,6 +256,7 @@ layout = html.Div(children=[
             dbc.Col(
                 dbc.ModalBody(children=(dcc.Textarea(
                     id='textarea7',
+                    maxLength='1999',
                     value='',
                     spellCheck=True,
                     style={"display": "flex", 'justifyContent': 'center', 'width': '80%', 'height': 100},
@@ -330,7 +337,7 @@ layout = html.Div(children=[
                     ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
                     ])
                 ],
-            is_open=True,
+            is_open=False,
             id="modal3",
             style={"white-space": "break-spaces"},
             backdrop=False
