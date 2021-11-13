@@ -201,13 +201,13 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
             name = d['name']
             email = d['email']
             print((name, email, Question1, Question2, Question3, Question4, Question5, Question6, Question7,text1, text2, text3, text4, text5, text6, text7))
-            feedback_info = Feedback_Book(int(Question1), int(Question2), int(Question3), int(Question4), int(Question5), int(Question6), int(Question7), str(text1), str(text2), str(text3), str(text4), str(text5), str(text6), str(text7))
+            feedback_info = Feedback_Book(name=name, email=email, Q_C1=int(Question1), Q_C2=int(Question2), Q_C3=int(Question3), Q_C4=int(Question4), Q_C5=int(Question5), Q_C6=int(Question6), Q_C7=int(Question7),  Q_open1=str(text1), Q_open2=str(text2), Q_open3=str(text3), Q_open4=str(text4), Q_open5=str(text5), Q_open6=str(text6), Q_open7=str(text7))
             db.session.add(feedback_info)
             db.session.commit()
         except Exception as e:
             error_file = "errors.json"
             with open(error_file, 'w') as f:
-                f.write(e + "\n")
+                f.write(str(e) + "\n")
         return is_open, not is_open2, None
     return is_open, is_open2, None
 
