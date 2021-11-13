@@ -293,7 +293,7 @@ layout = html.Div(children=[
         ),
         dbc.Modal(
             [
-                dbc.ModalHeader("You have submitted. Thank you for giving your feedback"),
+                dbc.ModalHeader("Feedback form submitted."),
                 dbc.ModalFooter(children=[
                     dbc.Button("Close", id='close', className="ml-auto", n_clicks=0),
                 ]
