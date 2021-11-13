@@ -48,11 +48,9 @@ class handler:
   def auth_callback(self, provider, code):
     """Callback handler for auth process
     """
-    print("this is function auth callback")
     self._oauth2_callback(provider, code)
 
   def on_signin(self, provider, profile):
-    print("this is function signin")
     """Callback when the user successfully signs in the account of the provider
     (e.g., Google account or Facebook account). Developers should overwrite this
     funciton.
@@ -123,9 +121,6 @@ class handler:
   def _check_provider(self, provider):
     """Check if valid provider, app_id, and app_secret
     """
-    print("TEST1")
-    print(provider)
-    print(self.SUPPORTED_PROVIDERS)
     # check if the provider is supported
     if provider not in self.SUPPORTED_PROVIDERS:
       raise Exception('unsupported provider: %s' % provider)
@@ -146,7 +141,6 @@ class handler:
     Send users to login page of provider (like Google or Facebook) for
     authentication and ask authorization of user data.
     """
-    print("_oauth2_init")
     self._check_provider(provider)
 
     args = {
@@ -161,11 +155,6 @@ class handler:
     # https://stackoverflow.com/questions/28906859/module-has-no-attribute-urlencode
     auth_url = self.PROVIDERS[provider][1] + '?' + urllib.parse.urlencode(args)
     # redirect users to login page of the provider
-
-    # print("using web.py")
-    # raise web.seeother(auth_url)
-
-    print(auth_url)
     return auth_url
 
 
@@ -175,15 +164,8 @@ class handler:
     Case 2) If auth ok, get access_token first, and then use the access_token to
             retrieve user profile.
     """
-    print("this is function oauth callback")
     self._check_provider(provider)
 
-    # check whether auth is ok, if not ok, raise Exception.
-    # error = web.input().get('error')
-    # if error:
-    #   raise Exception(error)
-
-    print("test1")
     args = {
       'code': code,
       'client_id': parameters[provider]['app_id'], 
@@ -195,18 +177,14 @@ class handler:
     _parser = getattr(self, '%s' % self.PROVIDERS[provider][3])
     response = _parser(
         self._http_post(self.PROVIDERS[provider][2], args).read())
-    print("test2")
 
     if response.get('error'):
       raise Exception(response)
 
     # access_token is ready, get user profile.
-    print("test3")
-
     _fetcher = getattr(self, '_get_%s_user_data' % provider)
     profile = _fetcher(response['access_token'])
     self.on_signin(provider, profile)
-    print("test4")
 
     # user profile ok. call on_signin function
 

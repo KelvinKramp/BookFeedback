@@ -62,7 +62,6 @@ class AuthPage(handler):
 
 class AuthCallbackPage(handler):
   def GET(self, provider, code):
-    print("this is function GET")
     self.auth_callback(provider, code)
 
 
@@ -77,6 +76,7 @@ class LogoutPage:
     dash.callback_context.response.set_cookie('_profile', '')
     import flask
     allcookies = dict(flask.request.cookies)
+    print("this are the cookies after logging out")
     print(allcookies)
     # invalidate '_id' in the cookie to logout the user
 

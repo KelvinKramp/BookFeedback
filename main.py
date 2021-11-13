@@ -11,6 +11,7 @@ import flask
 import dash
 from app import db, Feedback_Book
 import subprocess
+from app import server
 
 # try:
 #     subprocess.run("lsof -t -i tcp:8080 | xargs kill -9", shell=False) # kill the server
