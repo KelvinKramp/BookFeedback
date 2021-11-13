@@ -230,7 +230,7 @@ def google_manual_login(a,b, name, email, c,):
                            id="someid"), False
     elif a==0 and b==1:
         dash.callback_context.response.set_cookie('_id', "register_manual")
-        dash.callback_context.response.set_cookie('_profile', '{'+'"name"'+':"'+ str(name)+'"}')
+        dash.callback_context.response.set_cookie('_profile', '{'+'"name"'+':"'+ str(name)+'",'+'"email"'+':"'+ str(email)+'"}')
         return "", False
     else:
         if not allcookies.get('_id') or allcookies['_id'] == '':
