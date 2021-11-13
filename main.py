@@ -15,17 +15,13 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from app import db, Feedback
 
-
-
 # try:
 #     subprocess.run("lsof -t -i tcp:8080 | xargs kill -9", shell=False) # kill the server
 # except Exception as e:
 #     print(e)
 
-
 navbar = dbc.NavbarSimple(
     children=[
-
         dbc.DropdownMenu(
             children=[
                 dbc.DropdownMenuItem("Support my writing through Paypal", href="https://paypal.me/urbankizbook?country.x=NL&locale.x=nl_NL", target="_blank"),
@@ -55,8 +51,6 @@ app.layout = html.Div(children=[
                                     dcc.Link('Terms and conditions', href='/apps/term_cond'),
                                     dbc.Col('', width='1'),
                                     dcc.Link('Privacy policy', href='/apps/priv_pol'),
-                                    # dbc.Col('', width='1'),
-                                    # dcc.Link("Logout", href="/logout"),
                             ],
                             justify='center'),
                             html.Br(),
@@ -101,8 +95,6 @@ app.layout = html.Div(children=[
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'href')])
 def display_page(href):
-    print("printing href")
-    print(href)
     from apps import feedback
     # placed import feedback over here because otherwise the loading of the callback is going to be faster then
     # the layout loading, causing an error of input not found of callback
@@ -110,7 +102,6 @@ def display_page(href):
     print("printing allcookies for displaying page")
     print(allcookies)
     if ("/thanks" in href) or allcookies.get('_close'):
-        print(href)
         dash.callback_context.response.set_cookie('_close', "submitted_form")
         return thanks.layout
     elif '/apps/priv_pol' in href:
@@ -118,8 +109,7 @@ def display_page(href):
     elif '/apps/term_cond' in href:
         return term_cond.layout
     elif '/auth/google/callback' in href:
-        print(href)
-        print("authenticated")
+        print("google authenticated")
         url_dict = urllib.parse.parse_qs(href)
         code_item = next(iter(url_dict))
         code = url_dict[code_item][0]
@@ -127,7 +117,6 @@ def display_page(href):
         callback.GET('google', code)
         return feedback.layout
     elif "/logout" in href:
-        print(href)
         callback = login.LogoutPage()
         callback.GET()
         return feedback.layout
@@ -144,7 +133,6 @@ text_old = ""
     [State("modal-bug", "is_open")],
 )
 def notes_modal(n1, n2, text, is_open):
-    print("something")
     global text_old
     data = Feedback("a", "b", 1, 2,3,4, "c")
     db.session.add(data)
@@ -225,9 +213,7 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
     [State("modal3", "is_open")],
 )
 def google_manual_login(a,b, name, email, c,):
-    print(a,b, name, email, c,)
     allcookies = dict(flask.request.cookies)
-    print("these are the current cookies:", allcookies)
     if a==1 and b==0:
         auth = login.AuthPage()
         auth_url = auth.GET("google")
