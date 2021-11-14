@@ -8,10 +8,9 @@ style_score = {'display': 'inline-block', 'text-align': 'center', 'display': 'fl
                                            'justify-content': 'space-evenly', 'width': '30%'}
 labelStyle_score = {'display': 'inline-block', 'text-align': 'right','width': '100%',}
 
-introduction_text = """You've received a copy because you have contributed directly or indirectly to the writing or because you were just genuinely interested in what I've written down. 
-                                        I didn't explicitely tell you that it wasn't the final version because I wanted you to read as if it was the real thing. 
-                                        If you've had the time to read it, or parts of it, I would love to hear your opinion and use it in the final version before I
-                                        go public. To be able to improve quality it is important that you are as honest as possible."""
+register_introduction_text = "You've received a copy because you have contributed directly or indirectly to the writing or because you were just genuinely interested in what I've written down. I didn't explicitly tell you that it wasn't the final version because I wanted you to read as if it was the real thing. If you've had the time to read it or parts of it, I would love to hear your opinion and use it in the final version before I go public."
+explanation = "Please register your name and e-mail or log in with Google. This allows me to know who you are and get back in contact with you if I have any additional questions."
+introduction_text = """To be able to improve quality it is important that you are as honest as possible."""
 open_question_1 = "What do you think was the most interesting chapter and why?"
 open_question_2 = "Did you get stuck/disinterested while reading? and if yes where and why?"
 open_question_3 = "What could be improved in the illustrations?"
@@ -306,9 +305,11 @@ layout = html.Div(children=[
         ),
         dbc.Modal(
             [
-                dbc.ModalHeader("Register", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                dbc.ModalHeader("Hey there :-)", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
                 dbc.ModalFooter(children=[
-                    html.Div("Fill in your information to register", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    html.Div(register_introduction_text, style={'text-align': 'justify','width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    html.Div(""""""),
+                    html.Div(explanation, style={'text-align': 'justify','width': '100%', 'display': 'flex', 'justify-content':'center'}),
                     dbc.Row(children=[
                         html.Div("First name"),
                     ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
@@ -330,9 +331,9 @@ layout = html.Div(children=[
                                    style={'width': '100%', 'align': 'center', 'display': 'flex',
                                           'justify-content': 'center'}),
                     ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
-                    html.Div("Or login with google to automatically register", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                    #html.Div("Or login with google to automatically register", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
                     dbc.Row(children=[
-                        dbc.Button("Google", id='google-login', className="ml-auto", n_clicks=0,
+                        dbc.Button("Login with Google", id='google-login', className="ml-auto", n_clicks=0,
                                    style={'width': '100%', 'align':'center', 'display': 'flex', 'justify-content': 'center'}),
                     ],style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
                     ])
