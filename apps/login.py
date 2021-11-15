@@ -22,7 +22,6 @@ if "Users" in os.getcwd():
   auth.parameters['google']['app_secret'] = secret["app_secret"]
 else:
   website = os.environ['website_URL']
-  website = "http://localhost:8080"
   auth.parameters['google']['app_id'] = os.environ['app_id']
   auth.parameters['google']['app_secret'] = os.environ['app_secret']
 

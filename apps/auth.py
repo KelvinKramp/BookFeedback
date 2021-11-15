@@ -10,8 +10,7 @@ import urllib
 import urllib.parse
 import json
 import requests
-from http import cookies
-C = cookies.SimpleCookie()
+
 parameters = {
   'google': {
     'app_id': None,
