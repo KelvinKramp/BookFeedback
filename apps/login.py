@@ -10,16 +10,19 @@ import os
 import json
 import dash
 
+secrets = 'secrets.json'
+with open(secrets) as f:
+  secret = json.load(f)
 
 if "Users" in os.getcwd():
-  secrets = 'secrets.json'
-  with open(secrets) as f:
-      secret = json.load(f)
+  website = "http://localhost:8080"
   # create Google app & get app ID/secret from:
   # https://cloud.google.com/console
   auth.parameters['google']['app_id'] = secret["app_id"]
   auth.parameters['google']['app_secret'] = secret["app_secret"]
 else:
+  website = os.environ['website_URL']
+  website = "http://localhost:8080"
   auth.parameters['google']['app_id'] = os.environ['app_id']
   auth.parameters['google']['app_secret'] = os.environ['app_secret']
 
@@ -41,7 +44,7 @@ class handler(auth.handler):
   def callback_uri(self, provider):
     """Please return appropriate url according to your app setting.
     """
-    return 'http://localhost:8080/auth/%s/callback' % provider
+    return '{}/auth/{}/callback'.format(website, provider)
 
   def on_signin(self, provider, profile):
     """Callback when the user successfully signs in the account of the provider
