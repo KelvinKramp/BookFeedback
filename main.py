@@ -27,8 +27,8 @@ navbar = dbc.NavbarSimple(
             in_navbar=True,
             label="Support",
         ),
-        dbc.NavItem(dbc.NavLink("Report a bug", id='report-bug', n_clicks=0, href="/report-bug")),
-        dbc.NavItem(dbc.NavLink("Logout", id="logout", href="/logout")),
+        dbc.NavItem(dbc.NavLink("Report a bug", id='report-bug', n_clicks=0)),
+        # dbc.NavItem(dbc.NavLink("Logout", id="logout", href="/logout")),
     ],
     brand="Feedback form - Urban kiz: a new vision on partner dance",
     brand_href="/",
@@ -134,8 +134,8 @@ def display_page(href):
     [State("modal-bug", "is_open")],
 )
 def report_bug_modal(n1, n2, text, is_open):
-    if (n1 > n2) and not text:
-        return not is_open
+    if n1 > n2:
+        return True
     elif (n1 == n2) and text:
         allcookies = dict(request.cookies)
         print(allcookies)
@@ -154,7 +154,7 @@ def report_bug_modal(n1, n2, text, is_open):
             report_bug = Report_Bug(name=name, email=email, bug=text)
         db.session.add(report_bug)
         db.session.commit()
-        return not is_open
+        return False
     else:
         return is_open
 

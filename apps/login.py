@@ -10,11 +10,11 @@ import os
 import json
 import dash
 
-secrets = 'secrets.json'
-with open(secrets) as f:
-  secret = json.load(f)
 
 if "Users" in os.getcwd():
+  secrets = 'secrets.json'
+  with open(secrets) as f:
+    secret = json.load(f)
   website = "http://localhost:8080"
   # create Google app & get app ID/secret from:
   # https://cloud.google.com/console
