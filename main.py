@@ -226,16 +226,14 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
             d = json.loads(d)
             name = d['name']
             email = d['email']
-            print(name, email, Question1, Question2, Question3, Question4, Question5, Question6, Question7,text1, text2, text3, text4, text5, text6, text7)
             list_questions = [Question1, Question2, Question3, Question4, Question5, Question6, Question7]
-            list_new = [99999 if i == "" else i for i in list_questions]
+            list_new = [None if i == "" else int(i) for i in list_questions]
             Question1, Question2, Question3, Question4, Question5, Question6, Question7 = list_new
-            print(name, email, Question1, Question2, Question3, Question4, Question5, Question6, Question7,text1, text2, text3, text4, text5, text6, text7)
             feedback_info = Feedback_Book(name=name, email=email, Q_C1=Question1, Q_C2=Question2, Q_C3=Question3, Q_C4=Question4, Q_C5=Question5, Q_C6=Question6, Q_C7=Question7,  Q_open1=str(text1), Q_open2=str(text2), Q_open3=str(text3), Q_open4=str(text4), Q_open5=str(text5), Q_open6=str(text6), Q_open7=str(text7))
             db.session.add(feedback_info)
             db.session.commit()
         except Exception as e:
-            print("error occured in commit to db try statement")
+            print("Error occurred in commit to db try statement")
             error_file = "errors.json"
             with open(error_file, 'w') as f:
                 f.write(str(e) + "\n")
