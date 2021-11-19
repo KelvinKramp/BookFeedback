@@ -11,10 +11,11 @@ import json
 
 # MAKE DIFFERENCE BETWEEN PRODUCTION AND DEVELOPMENT ENVIRONMENT
 if "Users" in os.getcwd():
-  secrets = 'secrets.json'
-  with open(secrets) as f:
+    cwd = str(os.path.dirname(__file__))
+    secrets = cwd+'/secrets.json'
+    with open(secrets) as f:
       secret = json.load(f)
-  SQL_URI = secret["SQL_URI"]
+    SQL_URI = secret["SQL_URI"]
 else:
   SQL_URI = os.environ['SQL_URI']
 
@@ -52,6 +53,7 @@ class Feedback_Book(db.Model):
     Q_open5 = db.Column(db.String(2000), nullable=True, unique=False)
     Q_open6 = db.Column(db.String(2000), nullable=True, unique=False)
     Q_open7 = db.Column(db.String(2000), nullable=True, unique=False)
+    time = db.Column(db.String(100), unique=False)
 
 class Report_Bug(db.Model):
     __tablename__ = 'report_bug'
@@ -59,6 +61,7 @@ class Report_Bug(db.Model):
     name = db.Column(db.String(50), unique=False)
     email = db.Column(db.String(50), unique=False)
     bug = db.Column(db.String(2000), nullable=True, unique=False)
+    time = db.Column(db.String(100), unique=False)
 
 class Buy_Hardcover(db.Model):
     __tablename__ = 'buy_hardcover'

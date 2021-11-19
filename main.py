@@ -11,6 +11,7 @@ from flask import request
 import dash
 from app import db, Feedback_Book, Report_Bug, Buy_Hardcover
 from app import server # = necessary import
+import datetime
 from datetime import datetime as dt
 from datetime import timezone
 import time
@@ -145,13 +146,13 @@ def report_bug_modal(n1, n2, text, is_open):
             name = d['name']
             email = d['email']
             print(name, email, text)
-            report_bug = Report_Bug(name=name, email=email, bug=text)
+            report_bug = Report_Bug(name=name, email=email, bug=text, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
         except Exception as e:
             print(e)
             name = "Unknown"
             email = "Unknown"
             print(name, email, text)
-            report_bug = Report_Bug(name=name, email=email, bug=text)
+            report_bug = Report_Bug(name=name, email=email, bug=text, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
         db.session.add(report_bug)
         db.session.commit()
         return False
@@ -166,20 +167,20 @@ def report_bug_modal(n1, n2, text, is_open):
 def hardcover_modal(n1, n2, is_open):
     if n1 ==1 and n2 ==0:
         allcookies = dict(request.cookies)
-        time = str(dt.now(timezone.utc))
+        time = (str(dt.now().day) + "-" + str(dt.now().month))
         try:
             d = allcookies['_profile']
             d = json.loads(d)
             name = d['name']
             email = d['email']
             print(name, email, True)
-            buy_hardcover = Buy_Hardcover(name=name, email=email, buy=True, time=time)
+            buy_hardcover = Buy_Hardcover(name=name, email=email, buy=True, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
         except Exception as e:
             print(e)
             name = "Unknown"
             email = "Unknown"
             print(name, email, True)
-            buy_hardcover = Buy_Hardcover(name=name, email=email, bug=True, time=time)
+            buy_hardcover = Buy_Hardcover(name=name, email=email, bug=True, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
         db.session.add(buy_hardcover)
         db.session.commit()
         return not is_open
@@ -229,7 +230,7 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
             list_questions = [Question1, Question2, Question3, Question4, Question5, Question6, Question7]
             list_new = [None if i == "" else int(i) for i in list_questions]
             Question1, Question2, Question3, Question4, Question5, Question6, Question7 = list_new
-            feedback_info = Feedback_Book(name=name, email=email, Q_C1=Question1, Q_C2=Question2, Q_C3=Question3, Q_C4=Question4, Q_C5=Question5, Q_C6=Question6, Q_C7=Question7,  Q_open1=str(text1), Q_open2=str(text2), Q_open3=str(text3), Q_open4=str(text4), Q_open5=str(text5), Q_open6=str(text6), Q_open7=str(text7))
+            feedback_info = Feedback_Book(name=name, email=email, Q_C1=Question1, Q_C2=Question2, Q_C3=Question3, Q_C4=Question4, Q_C5=Question5, Q_C6=Question6, Q_C7=Question7,  Q_open1=str(text1), Q_open2=str(text2), Q_open3=str(text3), Q_open4=str(text4), Q_open5=str(text5), Q_open6=str(text6), Q_open7=str(text7), time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
             db.session.add(feedback_info)
             db.session.commit()
         except Exception as e:
