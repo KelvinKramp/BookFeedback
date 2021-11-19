@@ -8,8 +8,6 @@ loggings.json
 Untitled.ipynb
 test_csv_file.csv
 secrets.json
-secrets_backup.json
-encryption.py
 __pycache__
 *.xlsx
 *.spec
