@@ -25,7 +25,7 @@ else:
 
 
 log_file = './log.txt'
-with open(log_file) as f:
+with open(log_file, 'w') as f:
     log_file_text = json.load(f)
 if "OK" in str(log_file_text):
     status = "OK"
