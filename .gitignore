@@ -1,13 +1,7 @@
 venv
-*.csv
 .DS_Store
 .idea
 .ipynb_checkpoints
-browsersession.txt
-loggings.json
-Untitled.ipynb
-test_csv_file.csv
-secrets.json
 __pycache__
 *.xlsx
 *.spec
@@ -17,8 +11,8 @@ dist
 dist/dash_app
 files
 RBH_app
-update.sh
-token.txt
-upload_heroku.sh
 *.txt
 *.json
+*.csv
+*.ipynb
+*.sh

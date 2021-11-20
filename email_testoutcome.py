@@ -18,19 +18,12 @@ if "Users" in os.getcwd():
     fromaddr = decrypt_message(secret["email_email_comments"].encode('utf-8'))
     password = decrypt_message(secret["password_email_comments"].encode('utf-8'))
     toaddr = decrypt_message(secret["email_receive_comments"].encode('utf-8'))
+    developer = secret["developer"]
 else:
     fromaddr = os.environ["email_email_comments"]
     password = os.environ["password_email_comments"]
     toaddr = os.environ["email_receive_comments"]
-
-
-log_file = './log.txt'
-with open(log_file, 'w') as f:
-    log_file_text = json.load(f)
-if "OK" in str(log_file_text):
-    status = "OK"
-else:
-    status = "ERROR"
+    developer = os.environ["developer"]
 
 msg = MIMEMultipart()
 msg['From'] = secret["app_name"]
@@ -38,9 +31,15 @@ msg['To'] = toaddr
 msg['Subject'] = "Unittest result "+str(dt.now().day)+"-"+str(dt.now().month) + ":" + status
 date = str(dt.now().month)+"-"+str(dt.now().day)+"-"+str(dt.now().year)
 filename = "Log-"+date+".txt"
-developer = "k.h.kramp@gmail.com"
 
 def send_email(text, attachment_file):
+    log_file = './log.txt'
+    with open(log_file, 'w') as f:
+        log_file_text = json.load(f)
+    if "OK" in str(log_file_text):
+        status = "OK"
+    else:
+        status = "ERROR"
     body = "" + date
     msg.attach(MIMEText(body, 'plain'))
     attachment = open(attachment_file, "rb")
