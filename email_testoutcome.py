@@ -9,7 +9,7 @@ import json
 import sys
 import os
 from urllib.parse import urlparse
-
+from mailgun import send_message_mailgun
 
 msg = MIMEMultipart()
 # DEFINE VARIABLES
@@ -31,6 +31,7 @@ else:
     developer = os.environ["developer"]
     domain_name = os.environ["website_URL"]
     msg['From'] = urlparse(domain_name).netloc
+
 msg['To'] = toaddr
 
 date = str(dt.now().month)+"-"+str(dt.now().day)+"-"+str(dt.now().year)
@@ -44,6 +45,7 @@ def send_email(text, attachment_file):
         status = "OK"
     else:
         status = "ERROR"
+    send_message_mailgun()
     body = "" + date
     msg['Subject'] = "Unittest result " + date + ":" + status
     msg.attach(MIMEText(body, 'plain'))
