@@ -8,7 +8,10 @@ from encryption import *
 import json
 import sys
 import os
+from urllib.parse import urlparse
 
+
+msg = MIMEMultipart()
 # DEFINE VARIABLES
 if "Users" in os.getcwd():
     cwd = str(os.path.dirname(__file__))
@@ -19,28 +22,30 @@ if "Users" in os.getcwd():
     password = decrypt_message(secret["password_email_comments"].encode('utf-8'))
     toaddr = decrypt_message(secret["email_receive_comments"].encode('utf-8'))
     developer = secret["developer"]
+    domain_name = secret["website_URL"]
+    msg['From'] = urlparse(domain_name).netloc
 else:
     fromaddr = os.environ["email_email_comments"]
     password = os.environ["password_email_comments"]
     toaddr = os.environ["email_receive_comments"]
     developer = os.environ["developer"]
-
-msg = MIMEMultipart()
-msg['From'] = secret["app_name"]
+    domain_name = os.environ["website_URL"]
+    msg['From'] = urlparse(domain_name).netloc
 msg['To'] = toaddr
-msg['Subject'] = "Unittest result "+str(dt.now().day)+"-"+str(dt.now().month) + ":" + status
+
 date = str(dt.now().month)+"-"+str(dt.now().day)+"-"+str(dt.now().year)
 filename = "Log-"+date+".txt"
 
+
 def send_email(text, attachment_file):
-    log_file = './log.txt'
-    with open(log_file, 'w') as f:
-        log_file_text = json.load(f)
+    with open(attachment_file, 'r') as f:
+        log_file_text = f.read()
     if "OK" in str(log_file_text):
         status = "OK"
     else:
         status = "ERROR"
     body = "" + date
+    msg['Subject'] = "Unittest result " + date + ":" + status
     msg.attach(MIMEText(body, 'plain'))
     attachment = open(attachment_file, "rb")
     part = MIMEBase('application', 'octet-stream')
@@ -58,6 +63,7 @@ def send_email(text, attachment_file):
 
 def send_email_developer(text, attachment_file):
     body = "This is the outcome of the test of this app on " + date
+    msg['Subject'] = "Unittest result " + date + ":" + status
     msg.attach(MIMEText(body, 'plain'))
     attachment = open(attachment_file, "rb")
     part = MIMEBase('application', 'octet-stream')
