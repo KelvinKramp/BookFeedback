@@ -3,6 +3,7 @@ from mailgun import send_message_mailgun
 import json
 import os
 from datetime import datetime as dt
+import datetime
 
 # RUN TESTING UNIT
 subprocess.run("python testing.py 2> log.txt", shell=True)
@@ -35,7 +36,7 @@ if "OK" in str(log_file_text):
     status = "OK"
 else:
     status = "ERROR"
-date = str(dt.now().month)+"-"+str(dt.now().day)+"-"+str(dt.now().year)
+date = ((str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
 text = log_file_text
 subject = "Unittest result " + date + ":" + status
 
