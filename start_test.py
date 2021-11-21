@@ -25,6 +25,8 @@ else:
     port = int(os.environ["MAILGUN_SMTP_PORT"])
     sender = "you@" + str(os.environ["MAILGUN_DOMAIN"])
     password = os.environ["MAILGUN_SMTP_PASSWORD"]
+    print("TEST1")
+    print(developer, smtp_login, port, sender, password)
 
 
 
