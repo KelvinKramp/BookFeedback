@@ -106,9 +106,11 @@ def display_page(href):
         return priv_pol.layout
     elif '/apps/term_cond' in href:
         return term_cond.layout
-    elif ("/thanks" in href): # or allcookies.get('_close'):
+    elif ("/thanks" in href) or allcookies.get('_close'):
         dash.callback_context.response.set_cookie('_close', "submitted_form")
         return thanks.layout
+    elif allcookies.get('_id'):
+        return feedback.layout
     elif '/auth/google/callback' in href:
         print("google authenticated")
         url_dict = urllib.parse.parse_qs(href)

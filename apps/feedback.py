@@ -11,7 +11,7 @@ labelStyle_score = {'display': 'inline-block', 'text-align': 'right','width': '1
 register_introduction_text = "You've received a copy because you have contributed directly or indirectly to the writing or because you were just genuinely interested in what I've written down. Several people have read the raw version of the manuscript and gave comments that were used in the update to this version. As you might have noticed, this version has points of improvement. When you got the book I didn't explicitly tell you that it wasn't the final version because I wanted you to read it as if it was the real thing. If you've had the time to read it or parts of it, I would love to hear your opinion and use it in the final version before I start marketing and create awareness in the general public."
 explanation = "Please register your name and e-mail or log in with Google. This allows me to know who you are and get back in contact with you if I have any additional questions."
 introduction_text = ""
-open_question_1 = "What do you think was the most interesting chapter and why?"
+open_question_1 = "Which chapter was the most interesting chapter and why?"
 open_question_2 = "Did you get stuck/disinterested while reading? and if yes where and why?"
 open_question_3 = "What could be improved in the illustrations?"
 open_question_4 = "If you think it was incomplete can you tell me what you think was missing?"
@@ -31,6 +31,9 @@ layout = html.Div(children=[
         dbc.Row([
             html.H4("Readability/comprehensibilty",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
+        ]),
+        dbc.Row([
+            html.Br(),
         ]),
         dbc.Row(children=[
             html.H5("The text had flow",
@@ -124,8 +127,11 @@ layout = html.Div(children=[
             html.H4("Illustrations",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
         ]),
+        dbc.Row([
+            html.Br(),
+        ]),
         dbc.Row(children=[
-            html.H5("Were the illustrations helpfull?",
+            html.H5("Were the illustrations helpfulll?",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -158,6 +164,9 @@ layout = html.Div(children=[
         dbc.Row([
             html.H4("Completeness",
                     style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
+        ]),
+        dbc.Row([
+            html.Br(),
         ]),
         dbc.Row(children=[
             html.H5("Do you think there were things missing?",
@@ -197,15 +206,19 @@ layout = html.Div(children=[
         html.Br(),
         dbc.Row(children=[
             html.H5("The interviews helped understand the different perspectives on partner dance?",
-                    style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
-            dcc.RadioItems(
-                options=score,
-                id='7',
-                value='',
-                labelStyle=labelStyle_score,
-                style=style_score,
-            ),
-        ], ),
+                    style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
+            ]),
+            dbc.Row([
+                dcc.RadioItems(
+                    options=score,
+                    id='7',
+                    value='',
+                    # labelStyle=labelStyle_score,
+                    labelStyle = {"display": "inline-block", 'justify-content': 'space-evenly', 'text-align': 'center', 'width': '100%',},
+                    style={"display": "inline-block", 'text-align': 'center',
+                                 'justify-content': 'space-evenly', 'width': '100%'},
+                ),
+            ]),
         dbc.Row(children=[
             dbc.Col(
                 html.H5(open_question_5,
@@ -246,6 +259,9 @@ layout = html.Div(children=[
         # Open comments
         html.H4("Open comments",
                 style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
+        dbc.Row([
+            html.Br(),
+        ]),
         dbc.Row(children=[
             dbc.Col(
                 html.H5(open_question_7,
