@@ -21,10 +21,10 @@ if "Users" in os.getcwd():
 
 else:
     developer = os.environ["developer"]
-    smtp_login = str(os.environ["MAILGUN_SMTP_LOGIN"])
-    port = str(os.environ["MAILGUN_SMTP_PORT"])
+    smtp_login = os.environ["MAILGUN_SMTP_LOGIN"]
+    port = int(os.environ["MAILGUN_SMTP_PORT"])
     sender = "you@" + str(os.environ["MAILGUN_DOMAIN"])
-    password = str(os.environ["MAILGUN_SMTP_PASSWORD"])
+    password = os.environ["MAILGUN_SMTP_PASSWORD"]
 
 
 
