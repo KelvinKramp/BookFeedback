@@ -28,6 +28,13 @@ text_area = "/html/body/div/div/div[1]/div/div[9]/div/div/textarea"
 submit_button_2 = "/html/body/div/div/div[1]/div/div[29]/button"
 submit_button_3 = "/html/body/div[2]/div/div/div/div/div[2]/button"
 close_button = "/html/body/div[3]/div/div/div/div/div[2]/button"
+report_bug = "/html/body/div/div/nav/div/div/ul/li[2]/a"
+report_bug_text = "/html/body/div[2]/div/div[1]/div/div/div[2]/textarea"
+report_bug_send = "/html/body/div[2]/div/div[1]/div/div/div[3]/button"
+support = "/html/body/div/div/nav/div/div/ul/li[1]/a"
+buy_hardcover = "/html/body/div/div/nav/div/div/ul/li[1]/div/a[2]"
+buy_hardcover_send = "/html/body/div[2]/div/div[1]/div/div/div[3]/button"
+
 
 class TestFeedbackApp(unittest.TestCase):
 
@@ -51,7 +58,7 @@ class TestFeedbackApp(unittest.TestCase):
             chrome_options.add_argument("--no-sandbox")
             driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
                                       chrome_options=chrome_options)
-        wait = WebDriverWait(driver, 10)
+        wait = WebDriverWait(driver, 60)
         print("CONNECTION TO BROWSER SUCCESFULL")
 
 
@@ -72,8 +79,23 @@ class TestFeedbackApp(unittest.TestCase):
         self.assertTrue(keyword1 in page_source)
         print("REGISTER PAGE OK")
 
+    def test_b_report_bug(self):
+        element = wait.until(EC.element_to_be_clickable((By.XPATH, report_bug)))
+        driver.find_element(By.XPATH, report_bug).click()
+        element = wait.until(EC.element_to_be_clickable((By.XPATH, report_bug_text)))
+        driver.find_element(By.XPATH, report_bug_text).send_keys(test_text)
+        element = wait.until(EC.element_to_be_clickable((By.XPATH, report_bug_send)))
+        driver.find_element(By.XPATH, report_bug_send).click()
 
-    def test_b_submit_form(self):
+    def test_c_buy_hardcover(self):
+        element = wait.until(EC.element_to_be_clickable((By.XPATH, support)))
+        driver.find_element(By.XPATH, support).click()
+        element = wait.until(EC.element_to_be_clickable((By.XPATH, buy_hardcover)))
+        driver.find_element(By.XPATH, buy_hardcover).click()
+        element = wait.until(EC.element_to_be_clickable((By.XPATH, buy_hardcover_send)))
+        driver.find_element(By.XPATH, buy_hardcover_send).click()
+
+    def test_d_submit_form(self):
         element = wait.until(EC.element_to_be_clickable((By.XPATH, text_area)))
         driver.find_element(By.XPATH, text_area).send_keys(test_text)
         element = wait.until(EC.element_to_be_clickable((By.XPATH, submit_button_2)))
@@ -87,7 +109,7 @@ class TestFeedbackApp(unittest.TestCase):
         self.assertTrue(keyword2 in page_source)
         print("SUBMITTING PROCCESS OK")
 
-    def test_c_check_database(self):
+    def test_e_check_database(self):
         from app import db
         from sqlalchemy import text
         result1 = db.engine.execute(text("select * from feedback_book;")).fetchall()[-1]
