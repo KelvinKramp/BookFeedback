@@ -8,7 +8,7 @@ style_score = {'display': 'inline-block', 'text-align': 'center', 'display': 'fl
                                            'justify-content': 'space-evenly', 'width': '30%'}
 labelStyle_score = {'display': 'inline-block', 'text-align': 'right','width': '100%',}
 
-register_introduction_text = "You've received a copy because you have contributed directly or indirectly to the writing or because you were just genuinely interested in what I've written down. I didn't explicitly tell you that it wasn't the final version because I wanted you to read as if it was the real thing. If you've had the time to read it or parts of it, I would love to hear your opinion and use it in the final version before I go public."
+register_introduction_text = "You've received a copy because you have contributed directly or indirectly to the writing or because you were just genuinely interested in what I've written down. Several people have read the raw version of the manuscript and gave comments that were used in the update to this version. As you might have noticed, this version has points of improvement. When you got the book I didn't explicitly tell you that it wasn't the final version because I wanted you to read it as if it was the real thing. If you've had the time to read it or parts of it, I would love to hear your opinion and use it in the final version before I start marketing and create awareness in the general public."
 explanation = "Please register your name and e-mail or log in with Google. This allows me to know who you are and get back in contact with you if I have any additional questions."
 introduction_text = ""
 open_question_1 = "What do you think was the most interesting chapter and why?"
