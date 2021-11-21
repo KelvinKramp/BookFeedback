@@ -20,9 +20,11 @@ if "Users" in os.getcwd():
 
 else:
     developer = os.environ["developer"]
-    sender = "foo@" + str(os.environ["MAILGUN_DOMAIN"])
-    smtp_login = os.environ["MAILGUN_SMTP_LOGIN"]
-    password = os.environ["MAILGUN_SMTP_PASSWORD"]
+    smtp_login = str(os.environ["MAILGUN_SMTP_LOGIN"])
+    port = str(os.environ["MAILGUN_SMTP_PORT"])
+    sender = "you@" + str(os.environ["MAILGUN_DOMAIN"])
+    password = str(os.environ["MAILGUN_SMTP_PASSWORD"])
+
 
 
 # DEFINE TEXT FOR MAIL
@@ -39,3 +41,4 @@ subject = "Unittest result " + date + ":" + status
 
 # SEND MAIL
 send_message_mailgun(text, subject, developer, sender, smtp_login, password)
+

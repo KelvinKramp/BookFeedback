@@ -57,7 +57,6 @@ class TestFeedbackApp(unittest.TestCase):
 
 
     def test_a_registering(self):
-        return
         driver.get(test_page)
         element = wait.until(EC.element_to_be_clickable((By.XPATH, name)))
         driver.find_element(By.XPATH, name).clear()
@@ -76,7 +75,6 @@ class TestFeedbackApp(unittest.TestCase):
 
 
     def test_b_submit_form(self):
-        return
         element = wait.until(EC.element_to_be_clickable((By.XPATH, text_area)))
         driver.find_element(By.XPATH, text_area).send_keys(test_text)
         element = wait.until(EC.element_to_be_clickable((By.XPATH, submit_button_2)))
@@ -91,7 +89,6 @@ class TestFeedbackApp(unittest.TestCase):
         print("SUBMITTING PROCCESS OK")
 
     def test_c_check_database(self):
-        return
         from app import db
         from sqlalchemy import text
         result1 = db.engine.execute(text("select * from feedback_book;")).fetchall()[-1]
