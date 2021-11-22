@@ -25,8 +25,8 @@ keyword2 = "Awesome"
 name = "/html/body/div[2]/div/div/div/div/div[2]/div[5]/input"
 email = "/html/body/div[2]/div/div/div/div/div[2]/div[7]/input"
 submit_button = "/html/body/div[2]/div/div/div/div/div[2]/div[8]/button"
-text_area = "/html/body/div/div/div[1]/div/div[9]/div/div/textarea"
-submit_button_2 = "/html/body/div/div/div[1]/div/div[29]/button"
+text_area = "/html/body/div/div/div[1]/div/div[10]/div/div/textarea"
+submit_button_2 = "/html/body/div/div/div[1]/div/div[34]/button"
 submit_button_3 = "/html/body/div[2]/div/div/div/div/div[2]/button"
 close_button = "/html/body/div[3]/div/div/div/div/div[2]/button"
 report_bug = "/html/body/div/div/nav/div/div/ul/li[2]/a"
@@ -48,9 +48,8 @@ class TestFeedbackApp(unittest.TestCase):
             options = Options()
             options.add_argument("--window-size=1920,1080")
             options.add_argument("--start-maximized")
-            options.add_argument("--headless")
+            # options.add_argument("--headless")
             driver = webdriver.Chrome(options=options)
-
         else:
             chrome_options = Options()
             chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -60,7 +59,7 @@ class TestFeedbackApp(unittest.TestCase):
             ser = Service(os.environ.get("CHROMEDRIVER_PATH"))
             driver = webdriver.Chrome(service=ser,
                                       options=chrome_options)
-        wait = WebDriverWait(driver, 60, 300)
+        wait = WebDriverWait(driver, 10)
         print("CONNECTION TO BROWSER SUCCESFULL")
 
 
@@ -126,7 +125,7 @@ class TestFeedbackApp(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        driver.close()
+        # driver.close()
         print('TEARING DOWN CLASS')
 
 
