@@ -5,7 +5,6 @@ venv
 __pycache__
 *.xlsx
 *.spec
-assets
 build
 dist
 dist/dash_app
