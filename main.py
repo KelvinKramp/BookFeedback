@@ -38,16 +38,16 @@ navbar = dbc.NavbarSimple(
     sticky=True,
 )
 
-
+app.title = 'Feedback'
 app.layout = html.Div(children=[
                             navbar,
                             dcc.Location(id='url', refresh=False),
                             html.Div(id="page-content", children=[
                             ]),
                             dbc.Row([
-                                    dcc.Link('Terms and conditions', href='/apps/term_cond'),
+                                    dcc.Link('Terms and conditions', href='/apps/term_cond', style={"color":"white"}),
                                     dbc.Col('', width='1'),
-                                    dcc.Link('Privacy policy', href='/apps/priv_pol'),
+                                    dcc.Link('Privacy policy', href='/apps/priv_pol', style={"color":"white"}),
                             ],
                             justify='center'),
                             html.Br(),
@@ -98,8 +98,8 @@ def display_page(href):
     # placed import feedback over here because otherwise the loading of the callback is going to be faster then
     # the layout loading, causing an error of input not found of callback
     allcookies = dict(request.cookies)
-    print("printing allcookies for displaying page")
-    print(allcookies)
+    # print("printing allcookies for displaying page")
+    # print(allcookies)
     if "/report-bug" in href:
         return feedback.layout
     elif '/apps/priv_pol' in href:
@@ -112,7 +112,7 @@ def display_page(href):
     elif allcookies.get('_id'):
         return feedback.layout
     elif '/auth/google/callback' in href:
-        print("google authenticated")
+        # print("google authenticated")
         url_dict = urllib.parse.parse_qs(href)
         code_item = next(iter(url_dict))
         code = url_dict[code_item][0]
@@ -124,8 +124,8 @@ def display_page(href):
         callback.GET()
         time.sleep(2)
         allcookies = dict(request.cookies)
-        print("this are the cookies after logging out")
-        print(allcookies)
+        # print("this are the cookies after logging out")
+        # print(allcookies)
         return feedback.layout
     else:
         return feedback.layout
@@ -133,31 +133,33 @@ def display_page(href):
 
 @app.callback(
     Output("modal-bug", "is_open"),
-    [Input("report-bug", "n_clicks"), Input("send-email", "n_clicks"), Input("textarea", "value")],
-    [State("modal-bug", "is_open")],
+    [Input("report-bug", "n_clicks"), Input("send-email", "n_clicks")],
+    [State("modal-bug", "is_open"), State("textarea", "value")],
 )
-def report_bug_modal(n1, n2, text, is_open):
+def report_bug_modal(n1, n2, is_open, text):
     if n1 > n2:
-        return True
-    elif (n1 == n2) and text:
+        return not is_open
+    elif (n2 == n1) and len(text)>0:
         allcookies = dict(request.cookies)
-        print(allcookies)
+        # print(allcookies)
         try:
             d = allcookies['_profile']
             d = json.loads(d)
             name = d['name']
             email = d['email']
-            print(name, email, text)
+            # print(name, email, text)
             report_bug = Report_Bug(name=name, email=email, bug=text, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
         except Exception as e:
             print(e)
             name = "Unknown"
             email = "Unknown"
-            print(name, email, text)
+            # print(name, email, text)
             report_bug = Report_Bug(name=name, email=email, bug=text, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
         db.session.add(report_bug)
         db.session.commit()
-        return False
+        return not is_open
+    elif n1 >0 and (n1 == n2):
+        return not is_open
     else:
         return is_open
 
@@ -175,13 +177,13 @@ def hardcover_modal(n1, n2, is_open):
             d = json.loads(d)
             name = d['name']
             email = d['email']
-            print(name, email, True)
+            # print(name, email, True)
             buy_hardcover = Buy_Hardcover(name=name, email=email, buy=True, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
         except Exception as e:
             print(e)
             name = "Unknown"
             email = "Unknown"
-            print(name, email, True)
+            # print(name, email, True)
             buy_hardcover = Buy_Hardcover(name=name, email=email, bug=True, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
         db.session.add(buy_hardcover)
         db.session.commit()
@@ -265,8 +267,8 @@ def google_manual_login(a,b, name, email, c,):
         dash.callback_context.response.set_cookie('_profile', '{'+'"name"'+':"'+ str(name)+'",'+'"email"'+':"'+ str(email)+'"}')
         time.sleep(2)
         allcookies = dict(request.cookies)
-        print("this are the cookies after logging in")
-        print(allcookies)
+        # print("this are the cookies after logging in")
+        # print(allcookies)
         return dcc.Location(href='/',
                            id="someid2"), False
     else:
