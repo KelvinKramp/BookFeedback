@@ -21,12 +21,12 @@ navbar = dbc.NavbarSimple(
     children=[
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem("Support my writing through Paypal", href="https://paypal.me/urbankizbook?country.x=NL&locale.x=nl_NL", target="_blank"),
-                dbc.DropdownMenuItem("Buy a fully illustrated hardcover copy", id="buy", n_clicks=0, href="#"),
+                dbc.DropdownMenuItem("Paypal", href="https://paypal.me/urbankizbook?country.x=NL&locale.x=nl_NL", target="_blank"),
+                dbc.DropdownMenuItem("Buy photo illustrated hardcover copy", id="buy", n_clicks=0, href="#"),
             ],
             nav=True,
             in_navbar=True,
-            label="Support",
+            label="Support my writing",
         ),
         dbc.NavItem(dbc.NavLink("Report a bug", id='report-bug', n_clicks=0)),
         # dbc.NavItem(dbc.NavLink("Logout", id="logout", href="/logout")),

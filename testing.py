@@ -59,7 +59,7 @@ class TestFeedbackApp(unittest.TestCase):
             ser = Service(os.environ.get("CHROMEDRIVER_PATH"))
             driver = webdriver.Chrome(service=ser,
                                       options=chrome_options)
-        wait = WebDriverWait(driver, 10)
+        wait = WebDriverWait(driver, 60)
         print("CONNECTION TO BROWSER SUCCESFULL")
 
 
