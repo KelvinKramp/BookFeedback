@@ -171,20 +171,20 @@ def report_bug_modal(n1, n2, is_open, text):
 def hardcover_modal(n1, n2, is_open):
     if n1 ==1 and n2 ==0:
         allcookies = dict(request.cookies)
-        time = (str(dt.now().day) + "-" + str(dt.now().month))
+        time = (str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year))
         try:
             d = allcookies['_profile']
             d = json.loads(d)
             name = d['name']
             email = d['email']
             # print(name, email, True)
-            buy_hardcover = Buy_Hardcover(name=name, email=email, buy=True, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
+            buy_hardcover = Buy_Hardcover(name=name, email=email, buy=True, time=time)
         except Exception as e:
             print(e)
             name = "Unknown"
             email = "Unknown"
             # print(name, email, True)
-            buy_hardcover = Buy_Hardcover(name=name, email=email, bug=True, time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
+            buy_hardcover = Buy_Hardcover(name=name, email=email, bug=True, time=time)
         db.session.add(buy_hardcover)
         db.session.commit()
         return not is_open
@@ -203,6 +203,7 @@ def hardcover_modal(n1, n2, is_open):
      Input('5', 'value'),
      Input('6', 'value'),
      Input('7', 'value'),
+     Input('8', 'value'),
      Input('textarea1', 'value'),
      Input('textarea2', 'value'),
      Input('textarea3', 'value'),
@@ -216,7 +217,7 @@ def hardcover_modal(n1, n2, is_open):
     [State("modal", "is_open"),
      State("modal2", "is_open")],
 )
-def submit(Question1, Question2, Question3, Question4, Question5, Question6, Question7,text1, text2, text3, text4, text5, text6, text7, submitclick, save, close, is_open, is_open2):
+def submit(Question1, Question2, Question3, Question4, Question5, Question6, Question7, Question8, text1, text2, text3, text4, text5, text6, text7, submitclick, save, close, is_open, is_open2):
     if save == 0 and submitclick== 1:
         return not is_open, is_open2, None
     elif submitclick >1:
@@ -231,10 +232,10 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
             d = json.loads(d)
             name = d['name']
             email = d['email']
-            list_questions = [Question1, Question2, Question3, Question4, Question5, Question6, Question7]
+            list_questions = [Question1, Question2, Question3, Question4, Question5, Question6, Question7, Question8]
             list_new = [None if i == "" else int(i) for i in list_questions]
-            Question1, Question2, Question3, Question4, Question5, Question6, Question7 = list_new
-            feedback_info = Feedback_Book(name=name, email=email, Q_C1=Question1, Q_C2=Question2, Q_C3=Question3, Q_C4=Question4, Q_C5=Question5, Q_C6=Question6, Q_C7=Question7,  Q_open1=str(text1), Q_open2=str(text2), Q_open3=str(text3), Q_open4=str(text4), Q_open5=str(text5), Q_open6=str(text6), Q_open7=str(text7), time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
+            Question1, Question2, Question3, Question4, Question5, Question6, Question7, Question8 = list_new
+            feedback_info = Feedback_Book(name=name, email=email, Q_C1=Question1, Q_C2=Question2, Q_C3=Question3, Q_C4=Question4, Q_C5=Question5, Q_C6=Question6, Q_C7=Question7,  Q_C8=Question8, Q_open1=str(text1), Q_open2=str(text2), Q_open3=str(text3), Q_open4=str(text4), Q_open5=str(text5), Q_open6=str(text6), Q_open7=str(text7), time=(str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year)))
             db.session.add(feedback_info)
             db.session.commit()
         except Exception as e:
@@ -266,9 +267,6 @@ def google_manual_login(a,b, name, email, c,):
         dash.callback_context.response.set_cookie('_id', "register_manual")
         dash.callback_context.response.set_cookie('_profile', '{'+'"name"'+':"'+ str(name)+'",'+'"email"'+':"'+ str(email)+'"}')
         time.sleep(2)
-        allcookies = dict(request.cookies)
-        # print("this are the cookies after logging in")
-        # print(allcookies)
         return dcc.Location(href='/',
                            id="someid2"), False
     else:

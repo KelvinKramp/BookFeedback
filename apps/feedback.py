@@ -135,7 +135,7 @@ layout = html.Div(children=[
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
-                id='5',
+                id='6',
                 value='',
                 labelStyle=labelStyle_score,
                 style=style_score,
@@ -173,7 +173,7 @@ layout = html.Div(children=[
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
-                id='6',
+                id='7',
                 value='',
                 labelStyle=labelStyle_score,
                 style=style_score,
@@ -211,7 +211,7 @@ layout = html.Div(children=[
             dbc.Row([
                 dcc.RadioItems(
                     options=score,
-                    id='7',
+                    id='8',
                     value='',
                     # labelStyle=labelStyle_score,
                     labelStyle = {"display": "inline-block", 'justify-content': 'space-evenly', 'text-align': 'center', 'width': '100%',},
