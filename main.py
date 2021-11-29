@@ -140,6 +140,7 @@ def report_bug_modal(n1, n2, is_open, text):
     if n1 > n2:
         return not is_open
     elif (n2 == n1) and len(text)>0:
+        print("TEST1: REPORTING BUG")
         allcookies = dict(request.cookies)
         # print(allcookies)
         try:
@@ -172,6 +173,7 @@ def hardcover_modal(n1, n2, is_open):
     if n1 ==1 and n2 ==0:
         allcookies = dict(request.cookies)
         time = (str(dt.now(datetime.timezone.utc).day)+"-"+str(dt.now(datetime.timezone.utc).month)+"-"+str(dt.now(datetime.timezone.utc).year))
+        print("TEST2: HARDCOVER")
         try:
             d = allcookies['_profile']
             d = json.loads(d)
@@ -227,6 +229,7 @@ def submit(Question1, Question2, Question3, Question4, Question5, Question6, Que
                            id="someid")
     elif save == 1 and submitclick==1:
         try:
+            print("TEST3: HARDCOVER")
             allcookies = dict(request.cookies)
             d = allcookies['_profile']
             d = json.loads(d)

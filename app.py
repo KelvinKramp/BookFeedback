@@ -46,6 +46,7 @@ class Feedback_Book(db.Model):
     Q_C5 = db.Column(db.Integer, nullable=True)
     Q_C6 = db.Column(db.Integer, nullable=True)
     Q_C7 = db.Column(db.Integer, nullable=True)
+    Q_C8 = db.Column(db.Integer, nullable=True)
     Q_open1 = db.Column(db.String(2000), nullable=True, unique=False)
     Q_open2 = db.Column(db.String(2000), nullable=True, unique=False)
     Q_open3 = db.Column(db.String(2000), nullable=True, unique=False)
