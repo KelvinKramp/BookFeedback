@@ -19,7 +19,7 @@ test_name = "test_name"
 test_email = "test_email@email.com"
 test_text = "THIS IS A TEST RUN"
 keyword1 = "Readability/comprehensibilty"
-keyword2 = "Awesome"
+keyword2 = "Feedback"
 
 
 name = "/html/body/div[2]/div/div/div/div/div[2]/div[5]/input"
