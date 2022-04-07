@@ -30,4 +30,10 @@ Example secrets.json file:
   "smtp_login":"postmaster@sxxxxxxxxxxxxxxxx.mailgun.org"
 }
 
-![This is an image](https://github.com/KelvinKramp/BookFeedback/blob/master/Overview%20feedback%20form.jpeg)
+## Overview interactions
+![This is an image](assets/Overview.jpeg)
+
+## Screenshot 
+![This is an image](assets/Screenshot.png)
+
+## Screenshot 
