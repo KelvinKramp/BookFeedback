@@ -36,4 +36,5 @@ Example secrets.json file:
 ## Screenshot 
 ![This is an image](assets/Screenshot.png)
 
-## Screenshot 
+## To do 
+Use .env file instead of secrets.json file
