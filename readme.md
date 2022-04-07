@@ -18,4 +18,16 @@ Create Google app & get app ID/secret from: https://cloud.google.com/console
 
 Add google client id and client secret to secrets.json
 
+Example secrets.json file:
+{
+  "app_id":"xxxxxxxxxxxxxxxx",
+  "app_secret":"xxxxxxxxxxxxxxxx",
+  "SQL_URI":"xxxxxxxxxxxxxxxx",
+  "sender" : "xxxxxxxxxxxxxxxx@mailgun.org",
+  "password":"xxxxxxxxxxxxxxxx",
+  "website_URL":"https://xxx.herokuapp.com",
+  "developer":"x@gmail.com",
+  "smtp_login":"postmaster@sxxxxxxxxxxxxxxxx.mailgun.org"
+}
+
 ![This is an image](https://github.com/KelvinKramp/BookFeedback/blob/master/Overview%20feedback%20form.jpeg)

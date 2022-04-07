@@ -4,20 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 import configparser
 import os
 import json
+from dotenv import load_dotenv
+load_dotenv()
 
 #
-# If you dont want people to send their feedback multiple times with the same email address change the  value of unique to False in the classess beneath
+# If you dont want people to send their feedback multiple times with the same email address change the  value of unique to True in the classess beneath
 #
 
-# MAKE DIFFERENCE BETWEEN PRODUCTION AND DEVELOPMENT ENVIRONMENT
-if "Users" in os.getcwd():
-    cwd = str(os.path.dirname(__file__))
-    secrets = cwd+'/secrets.json'
-    with open(secrets) as f:
-      secret = json.load(f)
-    SQL_URI = secret["SQL_URI"]
-else:
-  SQL_URI = os.environ['SQL_URI']
+# LOAD DB URI
+SQL_URI = os.environ['SQL_URI']
 
 # START APP
 app = dash.Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.FLATLY])

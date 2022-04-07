@@ -1,7 +1,7 @@
 # IMPORT MODULES
-import dash_html_components as html
+from dash import html
 from dash.dependencies import Input, Output, State
-import dash_core_components as dcc
+from dash import dcc
 import dash_bootstrap_components as dbc
 from apps import priv_pol, term_cond, thanks, login # feedback app is imported in the callback because otherwise error due to to late loading of form
 from app import app
@@ -15,7 +15,7 @@ import datetime
 from datetime import datetime as dt
 from datetime import timezone
 import time
-
+import os
 
 navbar = dbc.NavbarSimple(
     children=[
@@ -280,4 +280,7 @@ def google_manual_login(a,b, name, email, c,):
 
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', port=8080, debug=True, use_reloader=True)
+    if os.environ.get('ENV') == "DEVELOPMENT":
+        app.run_server(host='0.0.0.0', port=8080, debug=True, use_reloader=True)
+    else:
+        app.run_server()

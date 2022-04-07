@@ -1,6 +1,6 @@
 # IMPORT MODULES
-import dash_html_components as html
-import dash_core_components as dcc
+from dash import html
+from dash import dcc
 import dash_bootstrap_components as dbc
 
 score = [{'label': 'Strongly agree', 'value': '1'}, {'label': 'Agree', 'value': '2'}, {'label': 'Neutral', 'value': '3'}, {'label': 'Disagree', 'value': '4'}, {'label': 'Strongly disagree', 'value': '5'}]
@@ -19,6 +19,15 @@ open_question_5 = "Is there something you missed in the interviews?"
 open_question_6 = "Is there someone you think should have been interviewed?"
 open_question_7 = "Do you have any comments?"
 
+Q1 = "The text had flow"
+Q2 = "The text was enjoyable to read"
+Q3 = "The text was understandable"
+Q4 = "The ideas were interesting"
+Q5 = "The text was too long"
+Q6 = "Were the illustrations helpfulll?"
+Q7 = "Do you think there were things missing?"
+Q8 = "The interviews helped understand the different perspectives on partner dance?"
+
 layout = html.Div(children=[
         html.Br(),
         dbc.Row([
@@ -36,7 +45,7 @@ layout = html.Div(children=[
             html.Br(),
         ]),
         dbc.Row(children=[
-            html.H5("The text had flow",
+            html.H5(Q1,
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -47,7 +56,7 @@ layout = html.Div(children=[
             ),
         ], ),
         dbc.Row(children=[
-            html.H5("The text was enjoyable to read",
+            html.H5(Q2,
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -58,7 +67,7 @@ layout = html.Div(children=[
             ),
         ], ),
         dbc.Row(children=[
-            html.H5("The text was understandable",
+            html.H5(Q3,
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -69,7 +78,7 @@ layout = html.Div(children=[
             ),
         ], ),
         dbc.Row(children=[
-            html.H5("The ideas were interesting",
+            html.H5(Q4,
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -80,7 +89,7 @@ layout = html.Div(children=[
             ),
         ], ),
         dbc.Row(children=[
-            html.H5("The text was too long",
+            html.H5(Q5,
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -131,7 +140,7 @@ layout = html.Div(children=[
             html.Br(),
         ]),
         dbc.Row(children=[
-            html.H5("Were the illustrations helpfulll?",
+            html.H5(Q6,
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -169,7 +178,7 @@ layout = html.Div(children=[
             html.Br(),
         ]),
         dbc.Row(children=[
-            html.H5("Do you think there were things missing?",
+            html.H5(Q7,
                     style={"display": "inline-block", 'textAlign': 'center', "width": "50%", }),
             dcc.RadioItems(
                 options=score,
@@ -205,7 +214,7 @@ layout = html.Div(children=[
         ]),
         html.Br(),
         dbc.Row(children=[
-            html.H5("The interviews helped understand the different perspectives on partner dance?",
+            html.H5(Q8,
                     style={"display": "inline-block", 'textAlign': 'center', "width": "100%", }),
             ]),
             dbc.Row([
@@ -321,7 +330,7 @@ layout = html.Div(children=[
         ),
         dbc.Modal(
             [
-                dbc.ModalHeader("Feedback form", style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
+                dbc.ModalHeader("Feedback form", close_button=False, style={'width': '100%', 'display': 'flex', 'justify-content':'center'}),
                 dbc.ModalFooter(children=[
                     html.Div(register_introduction_text, style={'text-align': 'justify','width': '100%', 'display': 'flex', 'justify-content':'center'}),
                     html.Div(""""""),
