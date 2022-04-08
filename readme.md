@@ -1,7 +1,14 @@
 # BookFeedback
+Book feedback form in Dash. You can see it running on Heroku over here:
+https://urbankizbookfeedback.herokuapp.com/
 
-Book feedback form in Dash
+## Screenshot 
+![This is an image](assets/Screenshot.png)
 
+## Overview interactions
+![This is an image](assets/Overview.jpeg)
+
+## Setup
 Setup local postgressql for development:
 https://www.youtube.com/watch?v=wTqosS71Dc4
 
@@ -29,12 +36,6 @@ Example secrets.json file:
   "developer":"x@gmail.com",
   "smtp_login":"postmaster@sxxxxxxxxxxxxxxxx.mailgun.org"
 }
-
-## Overview interactions
-![This is an image](assets/Overview.jpeg)
-
-## Screenshot 
-![This is an image](assets/Screenshot.png)
 
 ## To do 
 Use .env file instead of secrets.json file
